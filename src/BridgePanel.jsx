@@ -29,7 +29,7 @@ const destinationItems = [
   },
 ];
 
-function BridgePanel({selectedNFT}) {
+function BridgePanel({selectedNFTs, onRemoveNFT}) {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -45,13 +45,21 @@ function BridgePanel({selectedNFT}) {
       </div>
 
       {/* Selected NFT Panel */}
-      <div className="flex flex-col gap-y-2">
-        <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
-        <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-          {selectedNFT ? (
-            <SelectedNFT
-              nft={selectedNFT}
-            />
+      <div className="flex flex-col gap-y-2 z-10">
+        <div className="w-full flex justify-between items-center">
+          <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
+          {selectedNFTs.length > 0 && (
+            <div className="bg-blue-500 text-white px-3 py-1 rounded-full selected-label">
+              {selectedNFTs.length} Selected
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-y-8 w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
+          {selectedNFTs.length > 0 ? (
+            selectedNFTs.map((nft) => (
+              <SelectedNFT key={nft.id} nft={nft} onRemoveNFT={onRemoveNFT} />
+            ))
           ) : (
             <p className="text-white/50">No NFT selected</p>
           )}

@@ -1,4 +1,4 @@
-function SelectedNFT({ nft }) {
+function SelectedNFT({ nft, onRemoveNFT}) {
   const truncateAddress = (address) => {
     if (!address) return "";
     return `${address.slice(0, 5)}...${address.slice(-4)}`;
@@ -8,7 +8,6 @@ function SelectedNFT({ nft }) {
     return <p className="text-white/50">No NFT selected</p>;
   }
 
-  console.log(nft.image);
   return (
     <div className="flex w-full text-white gap-4 justify-between items-center">
       <div className="flex gap-4 items-center">
@@ -27,13 +26,16 @@ function SelectedNFT({ nft }) {
         </div>
       </div>
 
-      <div className="bg-white/15 transition-colors duration-300 hover:bg-white/30 rounded-full p-2 cursor-pointer">
+      <button
+        onClick={() => onRemoveNFT(nft)}
+        className="bg-white/15 transition-colors duration-300 hover:bg-white/30 rounded-full p-2 cursor-pointer"
+      >
         <img
           className="h-[10px]"
           src="/icons/close.svg"
           alt="Close Wallet dropdown"
         />
-      </div>
+      </button>
     </div>
   );
 }
