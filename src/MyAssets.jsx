@@ -7,7 +7,8 @@ const NFTCollection = [
     id: 1,
     name: "CryptoPunk #1",
     collection: "CryptoPunks",
-    image: "https://via.placeholder.com/150",
+    image:
+      "https://cdn.decrypt.co/resize/1024/height/512/wp-content/uploads/2022/11/bored-ape-3001-bieber-gID_7.png",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [
       { name: "Ethereum", isActive: true },
@@ -16,9 +17,9 @@ const NFTCollection = [
   },
   {
     id: 2,
-    name: "CryptoPunk #1",
+    name: "CryptoPunk #12",
     collection: "CryptoPunks",
-    image: "https://via.placeholder.com/150",
+    image: "",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [
       { name: "Ethereum", isActive: true },
@@ -28,9 +29,9 @@ const NFTCollection = [
   },
   {
     id: 3,
-    name: "CryptoPunk #1",
+    name: "CryptoPunk #33",
     collection: "CryptoPunks",
-    image: "https://via.placeholder.com/150",
+    image: "",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [
       { name: "Base", isActive: false },
@@ -40,9 +41,9 @@ const NFTCollection = [
   },
   {
     id: 4,
-    name: "CryptoPunk #1",
+    name: "CryptoPunk #55",
     collection: "CryptoPunks",
-    image: "https://via.placeholder.com/150",
+    image: "",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [
       { name: "Ethereum", isActive: false },
@@ -51,9 +52,9 @@ const NFTCollection = [
   },
   {
     id: 5,
-    name: "CryptoPunk #1",
+    name: "CryptoPunk #77",
     collection: "CryptoPunks",
-    image: "https://via.placeholder.com/150",
+    image: "",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "Abstract", isActive: true }],
   },
@@ -107,7 +108,7 @@ const collectionItems = [
 ];
 
 
-function MyAssets() {
+function MyAssets({setSelectedNFT}) {
   return (
     <div className="asset-ctr">
       <div className="bottom-gradient"></div>
@@ -135,6 +136,7 @@ function MyAssets() {
             name={nft.name}
             address={nft.address}
             networks={nft.networks}
+            onSelect={() => setSelectedNFT(nft)}
           />
         ))}
       </div>

@@ -7,25 +7,31 @@ const truncateAddress = (address) => {
   return `${address.slice(0, 5)}...${address.slice(-4)}`;
 };
 
-const NFTCard = ({ image, collection, name, address, networks }) => {
+const NFTCard = ({ image, collection, name, address, networks, onSelect }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleCardClick = () => {
     setIsSelected(!isSelected);
+    console.log(`nft ${name} clicked`)
   };
+
+console.log(image)
 
   return (
     <div
       className={`nft-card cursor-pointer ${
         isSelected ? "nft-card-selected" : ""
       }`}
-      onClick={handleCardClick}
+      onClick={() => {
+        handleCardClick();
+        onSelect();
+      }}
     >
       <div className="relative">
         <img
-          src={!image || placeholder}
+          src={image || placeholder}
           alt={name}
-          className="w-full min-h-[225px] object-cover rounded-lg"
+          className="w-full h-[225px]  object-cover rounded-lg"
         />
         <NetworkIcons networks={networks} />
 

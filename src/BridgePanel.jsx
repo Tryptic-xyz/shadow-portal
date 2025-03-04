@@ -29,7 +29,7 @@ const destinationItems = [
   },
 ];
 
-function BridgePanel() {
+function BridgePanel({selectedNFT}) {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -48,7 +48,7 @@ function BridgePanel() {
       <div className="flex flex-col gap-y-2">
         <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
         <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-          <SelectedNFT />
+          <SelectedNFT nft={selectedNFT} />
         </div>
       </div>
 
