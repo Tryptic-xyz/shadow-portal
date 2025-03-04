@@ -1,0 +1,13 @@
+#root {
+  background: radial-gradient(64.56% 80.66% at 50% 35.81%, #0054FA 0%, #002787 100%), #0047B1;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.gradient-border {
+  border-radius: 8px;
+  position: relative;
+  
+}
+

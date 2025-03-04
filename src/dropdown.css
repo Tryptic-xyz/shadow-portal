@@ -1,0 +1,32 @@
+@import "./index.css";
+.dropdown-ctr {
+  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col;
+}
+
+.menu-item {
+  @apply flex items-center w-full gap-3 px-4 min-w-52 py-5 rounded-md hover:bg-blue-100/15 cursor-pointer font-mono uppercase font-medium text-blue-100 tracking-widest text-sm transition-all duration-500 ease-in-out-quart;
+}
+
+.line {
+  transition: opacity 1s, transform 1s;
+}
+
+.icon {
+  transition: transform 1s, opacity 1s;
+}
+
+.destination-button {
+  @apply px-4 rounded-full py-3 text-white uppercase h-full flex items-center gap-3 transition-all;
+    background: linear-gradient(306deg, rgba(0, 84, 250, 0.60) 20.47%, rgba(95, 148, 255, 0.09) 66.94%), linear-gradient(0deg, rgba(255, 255, 255, 0.17) -13.11%, rgba(255, 255, 255, 0.02) 104.1%);
+}
+
+.destination-button:hover {
+  background: linear-gradient(306deg, rgba(0, 84, 250, 0.60) 20.47%, rgba(95, 148, 255, 0.80) 66.94%),
+      linear-gradient(0deg, rgba(255, 255, 255, 0.17) -13.11%, rgba(255, 255, 255, 0.02) 104.1%),
+      rgba(75, 85, 99, 0.60);
+}
+
+
+.bridge-panel-bg {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 75.06%, rgba(255, 255, 255, 0.15) 100%), linear-gradient(89deg, rgba(162, 129, 255, 0.15) 7.81%, rgba(235, 130, 128, 0.15) 31.14%, rgba(235, 191, 154, 0.15) 65.93%, rgba(137, 208, 255, 0.15) 90.66%), rgba(3, 10, 33, 0.80);
+}
