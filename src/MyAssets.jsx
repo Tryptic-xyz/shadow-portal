@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./ConnectWallet.css";
 import NFTCard from "./NFTCard.jsx";
 import Dropdown from "./Dropdown.jsx";
@@ -107,6 +108,35 @@ const collectionItems = [
 ];
 
 function MyAssets({ onSelectNFT, selectedNFTs }) {
+  const [selectedFilters, setSelectedFilters] = useState([]);
+
+  // Handle the selection of a filter or remove it if already selected
+  const handleFilterSelect = (filter) => {
+    setSelectedFilters(
+      (prevFilters) =>
+        prevFilters.includes(filter)
+          ? prevFilters.filter((f) => f !== filter) // Remove the filter if it is already selected
+          : [...prevFilters, filter] // Add the filter if it is not selected
+    );
+  };
+
+  // Remove a specific filter
+  const handleRemoveFilter = (filter) => {
+    setSelectedFilters((prevFilters) =>
+      prevFilters.filter((f) => f !== filter)
+    );
+  };
+
+  const filteredNFTs = NFTCollection.filter(
+    (nft) =>
+      selectedFilters.length === 0 ||
+      selectedFilters.some(
+        (filter) =>
+          nft.networks.some((network) => network.name === filter) ||
+          nft.collection === filter
+      )
+  );
+
   return (
     <div className="asset-ctr">
       <div className="bottom-gradient"></div>
@@ -121,10 +151,40 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         </div>
 
         <div className="dropdowns flex gap-3">
-          <Dropdown menuItems={networkItems} buttonName="Network" />
-          <Dropdown menuItems={collectionItems} buttonName="Collection" />
+          <Dropdown
+            menuItems={networkItems}
+            buttonName="Network"
+            onSelect={handleFilterSelect}
+          />
+          <Dropdown
+            menuItems={collectionItems}
+            buttonName="Collection"
+            onSelect={handleFilterSelect}
+          />
         </div>
       </div>
+
+      {/* Filter Labels */}
+      {selectedFilters.length > 0 && (
+        <div className="flex gap-2 flex-wrap mt-2 z-10">
+          {selectedFilters.map((filter) => (
+            <div
+              key={filter}
+              className="bg-blue-500 hover:bg-blue-300 text-white px-3 py-1 rounded-full flex items-center cursor-pointer"
+              onClick={() => handleRemoveFilter(filter)} // Remove the filter when clicked
+            >
+              {filter}
+              <button
+                className="ml-2 text-white text-sm font-bold"
+                onClick={() => handleRemoveFilter(filter)}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
       <div className="grid grid-cols-3 gap-4">
         {NFTCollection.map((nft) => (
           <NFTCard
@@ -135,7 +195,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
             address={nft.address}
             networks={nft.networks}
             onSelect={() => onSelectNFT(nft)}
-            isSelected={selectedNFTs.some((item) => item.id === nft.id)}
+            isSelected={selectedNFTs.some((item) => item.id === nft.id)} // Correctly sync selection
           />
         ))}
       </div>

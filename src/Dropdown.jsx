@@ -1,11 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 import "./dropdown.css";
 
-const Dropdown = ({ buttonName = "Menu", menuItems }) => {
+const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const itemsRef = useRef([]);
+
+  const handleSelect = (item) => {
+    if (item !== "divider") {
+      onSelect(item.name);
+      setIsOpen(false); // Close the dropdown after selecting an item
+    }
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -53,10 +60,7 @@ const Dropdown = ({ buttonName = "Menu", menuItems }) => {
                 tabIndex="0"
                 className="menu-item"
                 role="menuitem"
-                onClick={() => {
-                  item.action();
-                  setIsOpen(false);
-                }}
+                onClick={() => handleSelect(item)}
               >
                 <img
                   src={`/icons/${item.icon}.svg`}

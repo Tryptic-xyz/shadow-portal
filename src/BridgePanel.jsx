@@ -49,7 +49,7 @@ function BridgePanel({selectedNFTs, onRemoveNFT}) {
         <div className="w-full flex justify-between items-center">
           <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
           {selectedNFTs.length > 0 && (
-            <div className="bg-blue-500 text-white px-3 py-1 rounded-full selected-label">
+            <div className="bg-blue-500 tracking-wider font-mono uppercase text-sm px-4 py-0.5 rounded-full text-white/80">
               {selectedNFTs.length} Selected
             </div>
           )}
