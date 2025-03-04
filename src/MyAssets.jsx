@@ -1,6 +1,7 @@
+import { useState } from "react";
 import "./ConnectWallet.css";
 import NFTCard from "./NFTCard.jsx";
-import Dropdown from './Dropdown.jsx'
+import Dropdown from "./Dropdown.jsx";
 
 const NFTCollection = [
   {
@@ -60,7 +61,6 @@ const NFTCollection = [
   },
 ];
 
-
 const networkItems = [
   {
     name: "Apechain",
@@ -107,8 +107,15 @@ const collectionItems = [
   },
 ];
 
+function MyAssets({ onSelectNFT }) {
+  const [selectedNFT, setSelectedNFT] = useState(null);
 
-function MyAssets({setSelectedNFT}) {
+  const handleSelect = (nft) => {
+    const newSelectedNFT = selectedNFT?.id === nft.id ? null : nft;
+    setSelectedNFT(newSelectedNFT);
+    onSelectNFT(newSelectedNFT);
+  };
+
   return (
     <div className="asset-ctr">
       <div className="bottom-gradient"></div>
@@ -136,7 +143,8 @@ function MyAssets({setSelectedNFT}) {
             name={nft.name}
             address={nft.address}
             networks={nft.networks}
-            onSelect={() => setSelectedNFT(nft)}
+            onSelect={() => handleSelect(nft)}
+            isSelected={selectedNFT?.id === nft.id}
           />
         ))}
       </div>

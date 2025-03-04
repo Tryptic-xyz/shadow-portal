@@ -48,7 +48,13 @@ function BridgePanel({selectedNFT}) {
       <div className="flex flex-col gap-y-2">
         <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
         <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-          <SelectedNFT nft={selectedNFT} />
+          {selectedNFT ? (
+            <SelectedNFT
+              nft={selectedNFT}
+            />
+          ) : (
+            <p className="text-white/50">No NFT selected</p>
+          )}
         </div>
       </div>
 
@@ -75,8 +81,11 @@ function BridgePanel({selectedNFT}) {
 
       <button
         className={`cursor-pointer mt-4 py-5 rounded-lg px-4 uppercase tracking-widest transition-all ease-in-out-quart  z-1 ${
-          isToggled ? " text-white send-button font-bold" : "bg-blue-900/50 text-white/20"
-        }`}>
+          isToggled
+            ? " text-white send-button font-bold"
+            : "bg-blue-900/50 text-white/20"
+        }`}
+      >
         <div className="z-10">Send</div>
       </button>
 

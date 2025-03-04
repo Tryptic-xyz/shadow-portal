@@ -15,8 +15,6 @@ const NFTCard = ({ image, collection, name, address, networks, onSelect }) => {
     console.log(`nft ${name} clicked`)
   };
 
-console.log(image)
-
   return (
     <div
       className={`nft-card cursor-pointer ${
