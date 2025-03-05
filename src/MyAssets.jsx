@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ConnectWallet.css";
 import NFTCard from "./NFTCard.jsx";
 import Dropdown from "./Dropdown.jsx";
+import NetworkDropdown from "./NetworkDropdown.jsx";
 
 const NFTCollection = [
   {
@@ -151,11 +152,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         </div>
 
         <div className="dropdowns flex gap-3">
-          <Dropdown
-            menuItems={networkItems}
-            buttonName="Network"
-            onSelect={handleFilterSelect}
-          />
+          <NetworkDropdown menuItems={networkItems} />
           <Dropdown
             menuItems={collectionItems}
             buttonName="Collection"
@@ -166,16 +163,16 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
 
       {/* Filter Labels */}
       {selectedFilters.length > 0 && (
-        <div className="flex gap-2 flex-wrap mt-2 z-10">
+        <div className="flex gap-2 flex-wrap bg-blue-900/20 p-3 rounded-lg z-10">
           {selectedFilters.map((filter) => (
             <div
               key={filter}
-              className="bg-blue-500 hover:bg-blue-300 text-white px-3 py-1 rounded-full flex items-center cursor-pointer"
+              className="border-blue-300 border bg-blue-300/30 hover:bg-blue-300 text-white/70 hover:text-white px-3 py-1 rounded-full flex items-center cursor-pointer transition-all duration-300"
               onClick={() => handleRemoveFilter(filter)} // Remove the filter when clicked
             >
               {filter}
               <button
-                className="ml-2 text-white text-sm font-bold"
+                className="ml-2 text-white/50 text-sm font-bold"
                 onClick={() => handleRemoveFilter(filter)}
               >
                 ✕
