@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, React } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./NavBar.jsx";
 import MyAssets from "./MyAssets.jsx";
 import BridgePanel from "./BridgePanel.jsx";
 import Footer from "./Footer.jsx";
+import Terms from "./Terms.jsx";
+import PrivacyPolicy from "./PrivacyPolicy.jsx";
 
 function App() {
   const [selectedNFTs, setSelectedNFTs] = useState([]);
@@ -28,17 +31,31 @@ function App() {
   };
 
   return (
-    <div className="max-w-[1520px] w-full flex flex-col items-center gap-6 px-6">
-      <NavBar />
-      <div className="flex w-full h-full gap-4">
-        <MyAssets selectedNFTs={selectedNFTs} onSelectNFT={handleSelectNFT} />
-        <BridgePanel
-          selectedNFTs={selectedNFTs}
-          onRemoveNFT={handleRemoveNFT}
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="max-w-[1520px] w-full flex flex-col items-center gap-6 px-6">
+              <NavBar />
+              <div className="flex w-full h-full gap-4">
+                <MyAssets
+                  selectedNFTs={selectedNFTs}
+                  onSelectNFT={handleSelectNFT}
+                />
+                <BridgePanel
+                  selectedNFTs={selectedNFTs}
+                  onRemoveNFT={handleRemoveNFT}
+                />
+              </div>
+              <Footer />
+            </div>
+          }
         />
-      </div>
-      <Footer />
-    </div>
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+      </Routes>
+    </Router>
   );
 }
 
