@@ -3,14 +3,23 @@ import "./dropdown.css";
 
 const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const itemsRef = useRef([]);
 
   const handleSelect = (item) => {
     if (item !== "divider") {
-      onSelect(item.name);
-      setIsOpen(false); // Close the dropdown after selecting an item
+      if (selectedItem?.name === item.name) {
+        console.log(item.name)
+        setSelectedItem(null);
+        onSelect(null);
+      } else {
+        setSelectedItem(item);
+        onSelect(item.name);
+        console.log(item.name);
+      }
+      setIsOpen(false);
     }
   };
 
@@ -35,7 +44,7 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
         aria-expanded={isOpen}
         aria-label={`${buttonName} Dropdown`}
       >
-        <span>{buttonName}</span>
+        <span>{selectedItem ? selectedItem.name : buttonName}</span>
         <img src="/icons/chevron-down.svg" alt="chevron" className="w-4 h-4" />
       </button>
 
@@ -58,7 +67,11 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
                 key={index}
                 ref={(el) => (itemsRef.current[index] = el)}
                 tabIndex="0"
-                className="menu-item"
+                className={`menu-item ${
+                  selectedItem?.name === item.name
+                    ? "bg-blue-500 text-white"
+                    : ""
+                }`}
                 role="menuitem"
                 onClick={() => handleSelect(item)}
               >

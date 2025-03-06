@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import "./dropdown.css";
 
-const NetworkDropdown = ({ menuItems }) => {
+const NetworkDropdown = ({ menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(menuItems[0] || null); // Set default to first item
+  const [selectedItem, setSelectedItem] = useState(null);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const itemsRef = useRef([]);
@@ -21,22 +21,27 @@ const NetworkDropdown = ({ menuItems }) => {
 
   // Update selected item when an item is clicked
   const handleItemClick = (item) => {
-    setSelectedItem(item); // Update selected item
-    setIsOpen(false); // Close dropdown
+    if (item.name === "All Networks") {
+      setSelectedItem(null);
+      onSelect(null);
+    } else {
+      setSelectedItem(item);
+      onSelect(item.name);
+    }
+    setIsOpen(false);
   };
 
   return (
-    <div className="h-full gradient-border " ref={dropdownRef}>
+    <div className="h-full gradient-border" ref={dropdownRef}>
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className=" primary-btn h-full flex items-center gap-3 transition-all"
+        className="primary-btn h-full flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
-        aria-label="Destination Dropdown"
+        aria-label="Network Dropdown"
       >
         {selectedItem ? (
-          // If an item is selected, display the item's icon and name
           <>
             <img
               src={`/icons/${selectedItem.icon}.svg`}
@@ -51,8 +56,14 @@ const NetworkDropdown = ({ menuItems }) => {
             />
           </>
         ) : (
-          // In case no item is selected, show a placeholder
-          <span>Select an option</span>
+          <>
+            <span>All Networks</span>
+            <img
+              src="/icons/chevron-down.svg"
+              alt="chevron"
+              className="w-4 h-4"
+            />
+          </>
         )}
       </button>
 
@@ -76,16 +87,20 @@ const NetworkDropdown = ({ menuItems }) => {
                 ref={(el) => (itemsRef.current[index] = el)}
                 tabIndex="0"
                 className={`menu-item ${
-                  selectedItem === item ? "bg-blue-500 text-white" : ""
+                  selectedItem?.name === item.name
+                    ? "bg-blue-500 text-white"
+                    : ""
                 }`}
                 role="menuitem"
-                onClick={() => handleItemClick(item)} // Update selected item on click
+                onClick={() => handleItemClick(item)}
               >
-                <img
-                  src={`/icons/${item.icon}.svg`}
-                  alt={item.name}
-                  className="w-6 h-6"
-                />
+                {item.icon && (
+                  <img
+                    src={`/icons/${item.icon}.svg`}
+                    alt={item.name}
+                    className="w-6 h-6"
+                  />
+                )}
                 {item.name}
               </li>
             )
