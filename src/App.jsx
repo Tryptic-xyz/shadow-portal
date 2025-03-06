@@ -36,17 +36,19 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="max-w-[1520px] w-full flex flex-col items-center gap-6 px-6">
+            <div className="max-w-[1520px] w-full flex flex-col items-center gap-6 px-3 lg:px-6">
               <NavBar />
-              <div className="flex w-full h-full gap-4">
+              <div className="flex w-full h-full gap-4 mt-20">
                 <MyAssets
                   selectedNFTs={selectedNFTs}
                   onSelectNFT={handleSelectNFT}
                 />
-                <BridgePanel
-                  selectedNFTs={selectedNFTs}
-                  onRemoveNFT={handleRemoveNFT}
-                />
+                <div className="hidden lg:block">
+                  <BridgePanel
+                    selectedNFTs={selectedNFTs}
+                    onRemoveNFT={handleRemoveNFT}
+                  />
+                </div>
               </div>
               <Footer />
             </div>

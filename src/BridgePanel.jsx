@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
 import DestinationDropdown from "./DestinationDropdown.jsx";
-import Accordion from "./Accordian.jsx";
+import Accordion from "./Accordion.jsx";
 
 const destinationItems = [
   {
@@ -29,7 +29,7 @@ const destinationItems = [
   },
 ];
 
-function BridgePanel({selectedNFTs, onRemoveNFT}) {
+function BridgePanel({ selectedNFTs, onRemoveNFT }) {
   const [isToggled, setIsToggled] = useState(false);
 
   const handleToggle = () => {
@@ -37,7 +37,7 @@ function BridgePanel({selectedNFTs, onRemoveNFT}) {
   };
 
   return (
-    <div className="min-w-[450px] bg-blue-900/80 flex flex-col rounded-lg shadow-lg rainbow-gradient-stroke relative p-4 gap-y-8 bridge-panel-bg">
+    <div className="min-w-[450px] h-full bg-blue-900/80 flex flex-col rounded-lg shadow-lg rainbow-gradient-stroke relative p-4 gap-y-8 bridge-panel-bg">
       {/* Destination Dropdown */}
       <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
         <p className="text-white text-xl">Destination</p>

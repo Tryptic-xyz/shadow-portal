@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./ConnectWallet.css";
 import NFTCard from "./NFTCard.jsx";
 import Dropdown from "./Dropdown.jsx";
 import NetworkDropdown from "./NetworkDropdown.jsx";
+import BridgePanel from "./BridgePanel.jsx";
 
 const NFTCollection = [
   {
@@ -66,6 +66,9 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [networkItems, setNetworkItems] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationContent, setNotificationContent] = useState({});
+  const [showBridgePanel, setShowBridgePanel] = useState(false);
 
   // Initialize network items based on active networks in the NFT collection
   useEffect(() => {
@@ -179,6 +182,20 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     return acc;
   }, []);
 
+  const handleSelectNFT = (nft) => {
+    onSelectNFT(nft);
+    setNotificationContent({ collection: nft.collection, name: nft.name });
+    setShowNotification(true);
+  };
+
+  const handleShowBridgePanel = () => {
+    setShowBridgePanel(true);
+  };
+
+  const handleCloseBridgePanel = () => {
+    setShowBridgePanel(false);
+  };
+
   return (
     <div className="asset-ctr">
       <div className="bottom-gradient"></div>
@@ -229,7 +246,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
         {filteredNFTs.map((nft) => (
           <NFTCard
             key={nft.id}
@@ -238,11 +255,40 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
             name={nft.name}
             address={nft.address}
             networks={nft.networks}
-            onSelect={() => onSelectNFT(nft)}
+            onSelect={() => handleSelectNFT(nft)}
             isSelected={selectedNFTs.some((item) => item.id === nft.id)}
           />
         ))}
       </div>
+
+      {showNotification && (
+        <div className="fixed bottom-0 left-0 right-0 py-5 bg-blue-900 text-white flex items-center justify-center lg:hidden">
+          {`Asset Added: ${notificationContent.collection} - ${notificationContent.name}`}
+          <button
+            className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
+            onClick={handleShowBridgePanel}
+          >
+            View Bridge Panel
+          </button>
+        </div>
+      )}
+
+      {showBridgePanel && (
+        <div className="fixed inset-0 bg-blue-900/80 z-50 flex justify-center items-center lg:hidden">
+          <div className="relative">
+            <button
+              className="absolute top-2 right-2 text-white bg-red-500 rounded-full p-2 z-100"
+              onClick={handleCloseBridgePanel}
+            >
+              ✕
+            </button>
+            <BridgePanel
+              selectedNFTs={selectedNFTs}
+              onRemoveNFT={onSelectNFT}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

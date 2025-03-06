@@ -86,7 +86,7 @@
 }
 
 .nft-card {
-  @apply bg-gradient-to-b from-blue-300/30 to-blue-300/5 bg-blue-700 rounded-lg p-4 drop-shadow-xl gap-4 flex flex-col hover:from-blue-300/100 hover:to-blue-100/10 transition-all duration-300;
+  @apply bg-gradient-to-b from-blue-300/30 to-blue-300/5 bg-blue-700 rounded-lg p-3 lg:p-4 drop-shadow-xl gap-4 flex flex-col hover:from-blue-300/100 hover:to-blue-100/10 transition-all duration-300;
 }
 
 .nft-card:before {
@@ -123,7 +123,7 @@
 }
 
 .asset-ctr {
-  @apply w-full bg-gradient-to-t from-blue-900/50 to-blue-700 rounded-lg  px-6 pt-5 flex flex-col gap-6 relative;
+  @apply w-full bg-gradient-to-t from-blue-900/50 to-blue-700 rounded-lg  px-4 lg:px-6 pt-3 lg:pt-5 flex flex-col gap-4 lg:gap-6 relative;
 }
 
 .asset-ctr:before {

@@ -48,7 +48,7 @@ const ConnectWallet = () => {
   };
 
   return (
-    <div className="h-full gradient-border " ref={dropdownRef}>
+    <div className="h-full gradient-border hidden md:block" ref={dropdownRef}>
       <button
         ref={buttonRef}
         onClick={() => {
