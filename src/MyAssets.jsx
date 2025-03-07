@@ -247,7 +247,7 @@ function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[77vh] md:max-h-[77vh] overflow-y-scroll scrollbar-hide pb-4">
+      <div className="nft-grid scrollbar-hide">
         {filteredNFTs.map((nft) => (
           <NFTCard
             key={nft.id}

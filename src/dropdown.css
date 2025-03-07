@@ -30,3 +30,7 @@
 .bridge-panel-bg {
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 75.06%, rgba(255, 255, 255, 0.15) 100%), linear-gradient(89deg, rgba(162, 129, 255, 0.15) 7.81%, rgba(235, 130, 128, 0.15) 31.14%, rgba(235, 191, 154, 0.15) 65.93%, rgba(137, 208, 255, 0.15) 90.66%), rgba(3, 10, 33, 0.80);
 }
+
+.nft-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[70svh] md:max-h-[77vh] overflow-y-scroll  pb-4;
+}
