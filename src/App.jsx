@@ -39,7 +39,7 @@ function App() {
           path="/"
           element={
             <div className="outer-ctr flex flex-col h-screen items-center gap-0">
-              <div className="flex items-center w-full h-64 md:h-24">
+              <div className="flex items-center w-full h-24">
                 <NavBar />
               </div>
               <div className="flex w-full h-full gap-4">

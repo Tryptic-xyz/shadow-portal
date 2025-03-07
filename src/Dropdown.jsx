@@ -35,11 +35,11 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   }, []);
 
   return (
-    <div className="h-full w-full gradient-border" ref={dropdownRef}>
+    <div className="h-full w-full md:w-auto gradient-border" ref={dropdownRef}>
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="primary-btn h-full w-full flex items-center gap-3 transition-all"
+        className="primary-btn h-full w-full md:w-auto flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label={`${buttonName} Dropdown`}
