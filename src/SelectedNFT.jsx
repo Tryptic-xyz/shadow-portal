@@ -18,10 +18,10 @@ function SelectedNFT({ nft, onRemoveNFT}) {
         )}
 
         <div className="flex flex-col">
-          <p className="text-white/50 text-sm uppercase font-mono tracking-widest">
+          <p className="text-white/50 text-xs lg:text-sm uppercase font-mono tracking-widest">
             {nft.collection}
           </p>
-          <p className="text-white text-lg">{nft.name}</p>
+          <p className="text-white text-base md:text-lg">{nft.name}</p>
           <p className="text-white/80">{truncateAddress(nft.address)}</p>
         </div>
       </div>

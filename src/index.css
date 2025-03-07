@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @theme {
   --font-headline: Manuka, sans-serif;
   --font-body: DM Sans, sans-serif;
@@ -35,10 +36,24 @@
   font-family: "DM Sans";
 }
 
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .rainbow-gradient {
   background:  linear-gradient(89deg, #A281FF 7.81%, #EB8280 31.14%, #EBBF9A 65.93%, #89D0FF 90.66%);
 }
 
+.outer-ctr {
+  @apply max-w-[1520px] px-3 lg:px-6 w-full;
+}
 
 .rainbow-gradient-stroke:before {
   content: "";
@@ -86,7 +101,7 @@
 }
 
 .nft-card {
-  @apply bg-gradient-to-b from-blue-300/30 to-blue-300/5 bg-blue-700 rounded-lg p-3 lg:p-4 drop-shadow-xl gap-4 flex flex-col hover:from-blue-300/100 hover:to-blue-100/10 transition-all duration-300;
+  @apply bg-gradient-to-b from-blue-300/30 to-blue-300/5 bg-blue-700 rounded-lg p-3 lg:p-4 drop-shadow-xl gap-4 flex flex-col hover:from-blue-300/100 hover:to-blue-100/10 transition-all duration-300 cursor-pointer;
 }
 
 .nft-card:before {
@@ -121,25 +136,6 @@
 .network-icon {
   @apply  h-8 w-8 rounded-full border-2 border-white shadow-sm flex justify-center items-center -mr-2 overflow-hidden;
 }
-
-.asset-ctr {
-  @apply w-full bg-gradient-to-t from-blue-900/50 to-blue-700 rounded-lg  px-4 lg:px-6 pt-3 lg:pt-5 flex flex-col gap-4 lg:gap-6 relative;
-}
-
-.asset-ctr:before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 1px;
-  background: linear-gradient(rgb(92, 168, 255, 1) 0%,
-      rgb(92, 168, 255, .15) 50%);
-  border-radius: inherit;
-  mask: conic-gradient(#000 0 0) content-box exclude, conic-gradient(#000 0 0);
-}
-.bottom-gradient {
-  @apply absolute bottom-0 left-0 h-28 w-full bg-gradient-to-t from-blue-900/30 to-blue-900/0 z-10;
-}
-
 
 .bridge-panel {
   @apply min-w-[450px] bg-blue-900/80 rounded-lg relative shadow-xl flex flex-col items-center p-6 gap-8;

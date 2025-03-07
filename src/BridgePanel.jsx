@@ -37,17 +37,17 @@ function BridgePanel({ selectedNFTs, onRemoveNFT }) {
   };
 
   return (
-    <div className="min-w-[450px] h-full bg-blue-900/80 flex flex-col rounded-lg shadow-lg rainbow-gradient-stroke relative p-4 gap-y-8 bridge-panel-bg">
+    <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
       {/* Destination Dropdown */}
       <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-        <p className="text-white text-xl">Destination</p>
+        <p className="text-white lg:text-xl">Destination</p>
         <DestinationDropdown menuItems={destinationItems} />
       </div>
 
       {/* Selected NFT Panel */}
       <div className="flex flex-col gap-y-2 z-10">
         <div className="w-full flex justify-between items-center">
-          <h1 className="text-2xl text-white pl-1">Selected NFTs</h1>
+          <h1 className="lg:text-2xl text-white pl-1">Selected NFTs</h1>
           {selectedNFTs.length > 0 && (
             <div className="bg-blue-500 tracking-wider uppercase text-sm px-4 py-0.5 rounded-full text-white/80">
               {selectedNFTs.length} Selected
@@ -68,7 +68,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT }) {
 
       {/* Toggle Button */}
       <div className="flex justify-between items-center gap-4 mt-4 z-10">
-        <h1 className="text-2xl text-white">Approve selected NFTs</h1>
+        <h1 className="lg:text-2xl text-white">Approve selected NFTs</h1>
         <label className="relative flex items-center cursor-pointer w-12 h-6">
           <input
             type="checkbox"

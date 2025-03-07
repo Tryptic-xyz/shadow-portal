@@ -25,9 +25,11 @@ function App() {
   };
 
   const handleRemoveNFT = (nftToRemove) => {
-    setSelectedNFTs((prevNFTs) =>
-      prevNFTs.filter((nft) => nft.id !== nftToRemove.id)
-    );
+    setSelectedNFTs((prevNFTs) => {
+      const updatedNFTs = prevNFTs.filter((nft) => nft.id !== nftToRemove.id);
+
+      return updatedNFTs;
+    });
   };
 
   return (
@@ -36,12 +38,15 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="max-w-[1520px] w-full flex flex-col items-center gap-6 px-3 lg:px-6">
-              <NavBar />
-              <div className="flex w-full h-full gap-4 mt-20">
+            <div className="outer-ctr flex flex-col h-screen items-center gap-0">
+              <div className="flex items-center w-full h-64 md:h-24">
+                <NavBar />
+              </div>
+              <div className="flex w-full h-full gap-4">
                 <MyAssets
                   selectedNFTs={selectedNFTs}
                   onSelectNFT={handleSelectNFT}
+                  onRemoveNFT={handleRemoveNFT}
                 />
                 <div className="hidden lg:block">
                   <BridgePanel
@@ -50,7 +55,9 @@ function App() {
                   />
                 </div>
               </div>
-              <Footer />
+              <div className="flex items-end w-full h-20">
+                <Footer />
+              </div>
             </div>
           }
         />

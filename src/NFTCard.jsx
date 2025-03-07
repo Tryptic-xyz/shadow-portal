@@ -17,7 +17,7 @@ const NFTCard = ({
 }) => {
   return (
     <div
-      className={`nft-card cursor-pointer ${
+      className={`nft-card ${
         isSelected ? "nft-card-selected" : ""
       }`}
       onClick={onSelect} // No need for a separate local state

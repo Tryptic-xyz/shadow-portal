@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import NFTCard from "./NFTCard.jsx";
+import placeholder from "./assets/ape-placeholder.png";
 import Dropdown from "./Dropdown.jsx";
 import NetworkDropdown from "./NetworkDropdown.jsx";
 import BridgePanel from "./BridgePanel.jsx";
@@ -62,17 +63,16 @@ const NFTCollection = [
   },
 ];
 
-function MyAssets({ onSelectNFT, selectedNFTs }) {
+function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [networkItems, setNetworkItems] = useState([]);
   const [showNotification, setShowNotification] = useState(false);
-  const [notificationContent, setNotificationContent] = useState({});
   const [showBridgePanel, setShowBridgePanel] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Initialize network items based on active networks in the NFT collection
   useEffect(() => {
-    // Extract unique networks with isActive=true
+    // Initialize network items based on active networks in the NFT collection
     const uniqueActiveNetworks = new Set();
     NFTCollection.forEach((nft) => {
       nft.networks.forEach((network) => {
@@ -82,23 +82,20 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
       });
     });
 
-    // Create network items array from active networks
     const activeNetworkItems = Array.from(uniqueActiveNetworks).map(
       (networkName) => ({
         name: networkName,
-        icon: networkName, // Assuming icon name matches network name
+        icon: networkName,
         action: () => handleNetworkSelect(networkName),
       })
     );
 
-    // Add "All Networks" option
     activeNetworkItems.unshift({
       name: "All Networks",
-      icon: null, // No icon for "All Networks"
+      icon: null,
       action: () => handleNetworkSelect(null),
     });
 
-    // Add dividers between items
     const formattedNetworkItems = activeNetworkItems.reduce(
       (acc, item, index) => {
         if (index > 0) acc.push("divider");
@@ -111,10 +108,14 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     setNetworkItems(formattedNetworkItems);
   }, []);
 
-  // Handle network selection (single selection)
+  useEffect(() => {
+    if (selectedNFTs.length === 0) {
+      setShowNotification(false);
+    }
+  }, [selectedNFTs]);
+
   const handleNetworkSelect = (networkName) => {
     if (networkName === null) {
-      // Clear all filters when "All Networks" is selected
       setSelectedNetwork(null);
       setSelectedCollections([]);
     } else {
@@ -122,10 +123,8 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     }
   };
 
-  // Handle collection selection (multiple selection)
   const handleCollectionSelect = (collectionName) => {
     if (collectionName === null) {
-      // If null is passed, clear the collection selection
       setSelectedCollections([]);
     } else {
       setSelectedCollections((prev) =>
@@ -136,7 +135,6 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     }
   };
 
-  // Remove a specific filter
   const handleRemoveFilter = (filter) => {
     if (filter === selectedNetwork) {
       setSelectedNetwork(null);
@@ -145,16 +143,13 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     }
   };
 
-  // Filter NFTs based on selected network and collections
   const filteredNFTs = NFTCollection.filter((nft) => {
-    // Filter by network - only show NFTs where the selected network is active
     const matchesNetwork = selectedNetwork
       ? nft.networks.some(
           (network) => network.name === selectedNetwork && network.isActive
         )
       : true;
 
-    // Filter by collection
     const matchesCollection = selectedCollections.length
       ? selectedCollections.includes(nft.collection)
       : true;
@@ -162,13 +157,11 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     return matchesNetwork && matchesCollection;
   });
 
-  // Combine all active filters for display
   const activeFilters = [
     ...(selectedNetwork ? [selectedNetwork] : []),
     ...selectedCollections,
   ];
 
-  // Get unique collections for the dropdown
   const uniqueCollections = [
     ...new Set(NFTCollection.map((nft) => nft.collection)),
   ];
@@ -176,7 +169,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     if (index > 0) acc.push("divider");
     acc.push({
       name: collection,
-      icon: "Apechain", // You might want to use a more appropriate icon or map collection names to icons
+      icon: "Apechain",
       action: () => handleCollectionSelect(collection),
     });
     return acc;
@@ -184,8 +177,13 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
 
   const handleSelectNFT = (nft) => {
     onSelectNFT(nft);
-    setNotificationContent({ collection: nft.collection, name: nft.name });
-    setShowNotification(true);
+    if (selectedNFTs.some((item) => item.id === nft.id)) {
+      if (selectedNFTs.length === 1) {
+        setShowNotification(false);
+      }
+    } else {
+      setShowNotification(true);
+    }
   };
 
   const handleShowBridgePanel = () => {
@@ -196,10 +194,14 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
     setShowBridgePanel(false);
   };
 
+  const handleToggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="asset-ctr">
+    <div className="asset-ctr h-full overflow-hidden shadow-xl">
       <div className="bottom-gradient"></div>
-      <div className="assets-header flex flex-col lg:flex-row justify-between">
+      <div className="assets-header flex  gap-y-2 flex-col sm:flex-row justify-between">
         <div className="title flex items-center gap-3">
           <h1 className="font-headline uppercase text-blue-300 text-5xl tracking-wide">
             My Assets
@@ -209,7 +211,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
           </div>
         </div>
 
-        <div className="dropdowns flex gap-3">
+        <div className="dropdowns flex gap-3 min-h-10 w-full">
           <NetworkDropdown
             menuItems={networkItems}
             onSelect={handleNetworkSelect}
@@ -222,7 +224,6 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         </div>
       </div>
 
-      {/* Filter Labels */}
       {activeFilters.length > 0 && (
         <div className="flex gap-2 flex-wrap bg-blue-900/20 p-3 rounded-lg z-10">
           {activeFilters.map((filter) => (
@@ -246,7 +247,7 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 max-h-[70vh] md:max-h-[77vh] overflow-y-scroll scrollbar-hide pb-4">
         {filteredNFTs.map((nft) => (
           <NFTCard
             key={nft.id}
@@ -261,30 +262,75 @@ function MyAssets({ onSelectNFT, selectedNFTs }) {
         ))}
       </div>
 
-      {showNotification && (
-        <div className="fixed bottom-0 left-0 right-0 py-5 bg-blue-900 text-white flex items-center justify-center lg:hidden">
-          {`Asset Added: ${notificationContent.collection} - ${notificationContent.name}`}
+      {showNotification && selectedNFTs.length > 0 && (
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-blue-900/70 rounded-t-lg text-white flex flex-col gap-y-4 lg:hidden z-50 backdrop-blur-lg">
+          <div className="flex justify-between items-center">
+            <p className="font-mono uppercase text-xs text-blue-100/50">
+              {selectedNFTs.length} Assets Selected
+            </p>
+            <button
+              className="text-xs text-blue-100/50 uppercase"
+              onClick={handleToggleCollapse}
+            >
+              {isCollapsed ? "Expand" : "Collapse"}
+            </button>
+          </div>
+          {!isCollapsed && (
+            <div className="flex flex-col gap-y-2 w-full">
+              {selectedNFTs.map((nft) => (
+                <div
+                  key={nft.id}
+                  className="flex justify-between items-center w-full"
+                >
+                  <div className="flex justify-between items-center gap-2 bg-white/10 p-3 rounded-lg w-full">
+                    <div className="flex gap-x-3 items-center">
+                      <img
+                        src={nft.image || placeholder}
+                        alt={nft.name}
+                        className="w-12 h-12 object-cover rounded-lg"
+                      />
+                      <div className="flex flex-col">
+                        <p className="text-sm text-white/50">{nft.collection}</p>
+                        <p className="">{nft.name}</p>
+                      </div>
+                    </div>
+
+                    <button
+                      className="bg-white/15 transition-colors duration-300 hover:bg-white/30 rounded-full p-2 cursor-pointer"
+                      onClick={() => onRemoveNFT(nft)}
+                    >
+                      <img
+                        className="h-[10px]"
+                        src="/icons/close.svg"
+                        alt="Close Wallet dropdown"
+                      />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
           <button
-            className="ml-4 px-4 py-2 bg-blue-500 text-white rounded"
+            className="p-4 rounded-lg bg-blue-500 text-white uppercase font-mono tracking-wider"
             onClick={handleShowBridgePanel}
           >
-            View Bridge Panel
+            {selectedNFTs.length > 1 ? "Bridge Assets" : "Bridge Asset"}
           </button>
         </div>
       )}
 
       {showBridgePanel && (
-        <div className="fixed inset-0 bg-blue-900/80 z-50 flex justify-center items-center lg:hidden">
-          <div className="relative">
+        <div className="fixed inset-0 bg-blue-900/90 backdrop-blur-md z-50 flex justify-center items-center lg:hidden">
+          <div className="relative w-full px-4 ">
             <button
-              className="absolute top-2 right-2 text-white bg-red-500 rounded-full p-2 z-100"
+              className="absolute -top-10 right-1 text-white bg-red-500 rounded-full h-6 w-6 z-100"
               onClick={handleCloseBridgePanel}
             >
               ✕
             </button>
             <BridgePanel
               selectedNFTs={selectedNFTs}
-              onRemoveNFT={onSelectNFT}
+              onRemoveNFT={onRemoveNFT}
             />
           </div>
         </div>

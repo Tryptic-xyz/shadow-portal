@@ -4,7 +4,7 @@ import Menu from './Menu.jsx'
 
 function NavBar() {
   return (
-    <div className="fixed flex justify-between max-w-[1520px] w-full px-4 mt-3 lg:mt-6">
+    <div className=" flex justify-between w-full ">
       <a href="/" rel="noopener noreferrer">
         <img src={logo} alt="Shadow Portal Logo" className="h-12" />
       </a>

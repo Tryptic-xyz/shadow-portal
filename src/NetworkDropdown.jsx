@@ -32,11 +32,11 @@ const NetworkDropdown = ({ menuItems, onSelect }) => {
   };
 
   return (
-    <div className="h-full gradient-border" ref={dropdownRef}>
+    <div className="h-full w-full gradient-border" ref={dropdownRef}>
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="primary-btn h-full flex items-center gap-3 transition-all"
+        className="primary-btn w-full h-full flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label="Network Dropdown"
