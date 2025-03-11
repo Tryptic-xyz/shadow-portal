@@ -1,7 +1,10 @@
 @import "./index.css";
-#root {
-  @apply h-full min-h-screen flex flex-col items-center w-full;
+#root {@apply h-full w-full flex flex-col items-center;
   background: radial-gradient(64.56% 80.66% at 50% 35.81%, #0054FA 0%, #002787 100%), #0047B1;
+}
+
+body {
+  @apply h-screen;
 }
 
 .gradient-border {

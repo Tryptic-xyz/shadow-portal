@@ -46,11 +46,9 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="outer-ctr flex flex-col h-screen items-center gap-0">
-              <div className="flex items-center w-full h-24">
-                <NavBar setIsLoggedIn={setIsLoggedIn} />
-              </div>
-              <div className="flex w-full h-fit md:h-full gap-4">
+            <div className="outer-ctr flex flex-col w-full h-full">
+              <NavBar setIsLoggedIn={setIsLoggedIn} />
+              <div className="flex w-full h-full md:h-full gap-4">
                 {isLoggedIn ? (
                   <>
                     <MyAssets
@@ -85,9 +83,7 @@ function App() {
                   </div>
                 )}
               </div>
-              <div className="flex items-end w-full h-20">
-                <Footer />
-              </div>
+              <Footer />
             </div>
           }
         />
