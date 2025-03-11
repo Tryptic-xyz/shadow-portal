@@ -20,7 +20,7 @@ const NFTCard = ({
       className={`nft-card ${
         isSelected ? "nft-card-selected" : ""
       }`}
-      onClick={onSelect} // No need for a separate local state
+      onClick={onSelect}
     >
       <div className="relative">
         <img
@@ -32,7 +32,7 @@ const NFTCard = ({
 
         <div
           className={`absolute flex justify-center items-center top-2 left-2 border-2 h-7 w-7 rounded-full shadow-md border-white cursor-pointer ${
-            isSelected ? "bg-blue-500" : "bg-blue-900/5"
+            isSelected ? "bg-blue-500 opacity-100" : "bg-blue-900/5 opacity-50"
           }`}
         >
           {isSelected && <img src="/icons/checkmark.svg" alt="Selected" />}

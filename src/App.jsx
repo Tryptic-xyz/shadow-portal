@@ -46,9 +46,9 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="outer-ctr flex flex-col w-full h-full">
+            <div className="outer-ctr flex flex-col justify-between w-full h-full bg-black">
               <NavBar setIsLoggedIn={setIsLoggedIn} />
-              <div className="flex w-full h-full md:h-full gap-4">
+              <div className="flex w-full h-[800px] gap-4">
                 {isLoggedIn ? (
                   <>
                     <MyAssets
