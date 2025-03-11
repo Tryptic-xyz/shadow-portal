@@ -11,7 +11,7 @@ import placeholderImage from "./assets/logged-out.png";
 
 function App() {
   const [selectedNFTs, setSelectedNFTs] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleSelectNFT = (nft) => {
     setSelectedNFTs((prevNFTs) => {
@@ -67,17 +67,17 @@ function App() {
                     </div>
                   </>
                 ) : (
-                  <div className="flex flex-col items-center justify-center w-full h-full rounded-lg border-white/30 border bg-blue-900/70 p-6 relative">
+                  <div className="flex flex-col items-center justify-center w-full h-full rounded-lg border-white/30 border bg-blue-900/70 p-3 lg:p-6 relative">
                     <img
                       src={placeholderImage}
                       alt="Placeholder"
                       className="object-fit h-full w-full"
                     />
                     <div className="absolute m-auto flex flex-col items-center justify-center gap-y-2">
-                      <h1 className="font-headline uppercase text-blue-500 text-7xl tracking-wide">
+                      <h1 className="font-headline uppercase text-blue-500 text-5xl lg:text-7xl tracking-wide text-center">
                         Connect your wallet
                       </h1>
-                      <p className="text-white max-w-[350px] text-lg text-center">
+                      <p className="text-white max-w-[300px] lg:max-w-[350px] lg:text-lg text-center">
                         Sign in with a supported wallet to view your assets and
                         start bridging.
                       </p>

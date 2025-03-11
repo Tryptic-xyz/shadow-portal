@@ -17,7 +17,7 @@ const truncateAddress = (address) => {
 
 const ConnectWallet = ({ setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedInLocal] = useState(false);
+  const [isLoggedIn, setIsLoggedInLocal] = useState(true);
   const [copied, setCopied] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
