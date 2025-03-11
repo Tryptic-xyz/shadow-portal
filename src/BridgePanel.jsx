@@ -2,6 +2,8 @@ import { useState } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
 import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
+import inProgress from "./assets/bridge-progress.png"
+import complete from "./assets/bridge-complete.png";
 
 const destinationItems = [
   {
@@ -148,21 +150,26 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
       {screen === "inProgress" && (
         <div className="flex flex-col items-center justify-center h-full">
           <h1 className="text-white text-2xl">Bridging in progress...</h1>
+          <img src={inProgress} alt="Bridging in progress" />
         </div>
       )}
 
       {screen === "successful" && (
-        <div className="flex flex-col items-center justify-center h-full z-100">
-          <h1 className="text-white text-2xl">Bridge Successful</h1>
-          <div className="flex gap-4 mt-4">
-            <button className="bg-blue-500 text-white py-2 px-4 rounded">
+        <div className="flex flex-col items-center justify-center h-full z-100 gap-y-10">
+          <div className="flex flex-col gap-y-4 items-center">
+            <h1 className="text-white text-3xl">Bridge Successful</h1>
+            <img src={complete} alt="Bridging in progress" />
+          </div>
+
+          <div className="flex flex-col w-full gap-3 mt-4">
+            <button className="bg-white/50 hover:bg-white/30 transition-colors text-white py-4 uppercase font-mono px-4 rounded-md">
               View Transaction
             </button>
             <button
-              className="bg-blue-500 text-white py-2 px-4 rounded"
+              className="bg-blue-500 hover:bg-blue-700 transition-colors  uppercase font-mono p-4 text-white rounded-md"
               onClick={handleCloseClick}
             >
-              Close
+              Reset
             </button>
           </div>
         </div>
