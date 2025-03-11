@@ -50,7 +50,7 @@ function App() {
               <div className="flex items-center w-full h-24">
                 <NavBar setIsLoggedIn={setIsLoggedIn} />
               </div>
-              <div className="flex w-full h-full gap-4">
+              <div className="flex w-full h-fit md:h-full gap-4">
                 {isLoggedIn ? (
                   <>
                     <MyAssets

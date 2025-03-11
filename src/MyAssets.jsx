@@ -308,7 +308,7 @@ function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
   };
 
   return (
-    <div className="asset-ctr h-full overflow-hidden shadow-xl max-h-[80svh] md:max-h-[90vh]">
+    <div className="asset-ctr h-full shadow-xl max-h-[80svh] md:max-h-[90vh]">
       <div className="bottom-gradient"></div>
       <div className="assets-header flex  gap-y-2 flex-col sm:flex-row justify-between">
         <div className="title flex items-center gap-3">
