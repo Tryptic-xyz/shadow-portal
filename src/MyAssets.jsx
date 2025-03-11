@@ -176,6 +176,14 @@ function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
   }, []);
 
   const handleSelectNFT = (nft) => {
+    if (
+      selectedNFTs.length >= 3 &&
+      !selectedNFTs.some((item) => item.id === nft.id)
+    ) {
+      alert("The limit to bridge is 3 assets at a time.");
+      return;
+    }
+
     onSelectNFT(nft);
     if (selectedNFTs.some((item) => item.id === nft.id)) {
       if (selectedNFTs.length === 1) {
@@ -290,7 +298,9 @@ function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
                         className="w-12 h-12 object-cover rounded-lg"
                       />
                       <div className="flex flex-col">
-                        <p className="text-sm text-white/50">{nft.collection}</p>
+                        <p className="text-sm text-white/50">
+                          {nft.collection}
+                        </p>
                         <p className="">{nft.name}</p>
                       </div>
                     </div>
