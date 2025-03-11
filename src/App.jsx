@@ -19,8 +19,10 @@ function App() {
         return prevNFTs.filter((item) => item.id !== nft.id); // Remove if already selected
       } else if (prevNFTs.length < 3) {
         return [...prevNFTs, nft]; // Add if under limit
+      } else {
+        alert("Sorry, you can only bridge 3 assets at a time.");
+        return prevNFTs; // Do nothing if already at limit
       }
-      return prevNFTs; // Do nothing if already at limit
     });
   };
 
@@ -30,6 +32,10 @@ function App() {
 
       return updatedNFTs;
     });
+  };
+
+  const resetSelectedNFTs = () => {
+    setSelectedNFTs([]);
   };
 
   return (
@@ -52,6 +58,7 @@ function App() {
                   <BridgePanel
                     selectedNFTs={selectedNFTs}
                     onRemoveNFT={handleRemoveNFT}
+                    resetSelectedNFTs={resetSelectedNFTs}
                   />
                 </div>
               </div>
