@@ -7,25 +7,25 @@ const destinationItems = [
   {
     name: "Apechain",
     icon: "Apechain",
-    action: () => console.log("Apechain selected"),
+    
   },
   "divider",
   {
     name: "Ethereum",
     icon: "Ethereum",
-    action: () => console.log("Ethereum selected"),
+    
   },
   "divider",
   {
     name: "Base",
     icon: "Base",
-    action: () => console.log("Base Selected"),
+    
   },
   "divider",
   {
     name: "Abstract",
     icon: "Abstract",
-    action: () => console.log("Abstract Selected"),
+    
   },
 ];
 

@@ -5,19 +5,18 @@ const menuItems = [
   {
     name: "FAQs",
     icon: "faq",
-    action: () => console.log("go to FAQs"),
   },
   "divider",
   {
     name: "Docs",
     icon: "docs",
-    action: () => console.log("go to Docs"),
+    
   },
   "divider",
   {
     name: "DN404",
     icon: "support",
-    action: () => console.log("go to DN404"),
+    
   },
 ];
 

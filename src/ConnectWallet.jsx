@@ -15,10 +15,9 @@ const truncateAddress = (address) => {
   return `${address.slice(0, 5)}...${address.slice(-4)}`;
 };
 
-
-const ConnectWallet = () => {
+const ConnectWallet = ({ setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedInLocal] = useState(false);
   const [copied, setCopied] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
@@ -43,7 +42,8 @@ const ConnectWallet = () => {
 
   // Disconnect function
   const handleDisconnect = () => {
-    setIsLoggedIn(false); 
+    setIsLoggedInLocal(false);
+    setIsLoggedIn(false); // Update the login status in the App component
     setIsOpen(false);
   };
 
@@ -53,7 +53,8 @@ const ConnectWallet = () => {
         ref={buttonRef}
         onClick={() => {
           if (!isLoggedIn) {
-            setIsLoggedIn(true); // Simulate logging in
+            setIsLoggedInLocal(true); // Simulate logging in
+            setIsLoggedIn(true); // Update the login status in the App component
           } else {
             setIsOpen(!isOpen); // Open dropdown if already logged in
           }

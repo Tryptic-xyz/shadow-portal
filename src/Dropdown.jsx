@@ -11,13 +11,13 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   const handleSelect = (item) => {
     if (item !== "divider") {
       if (selectedItem?.name === item.name) {
-        console.log(item.name)
+        
         setSelectedItem(null);
         onSelect(null);
       } else {
         setSelectedItem(item);
         onSelect(item.name);
-        console.log(item.name);
+        
       }
       setIsOpen(false);
     }
