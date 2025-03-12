@@ -164,7 +164,12 @@ const NFTCollection = [
   },
 ];
 
-function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
+function MyAssets({
+  onSelectNFT,
+  selectedNFTs,
+  onRemoveNFT,
+  resetSelectedNFTs,
+}) {
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [networkItems, setNetworkItems] = useState([]);
@@ -442,6 +447,7 @@ function MyAssets({ onSelectNFT, selectedNFTs, onRemoveNFT }) {
             <BridgePanel
               selectedNFTs={selectedNFTs}
               onRemoveNFT={onRemoveNFT}
+              resetSelectedNFTs={resetSelectedNFTs}
             />
           </div>
         </div>

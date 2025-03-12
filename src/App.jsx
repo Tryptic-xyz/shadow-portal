@@ -48,13 +48,14 @@ function App() {
           element={
             <div className="outer-ctr flex flex-col justify-between w-full h-full ">
               <NavBar setIsLoggedIn={setIsLoggedIn} />
-              <div className="flex w-full h-[80vh] gap-4">
+              <div className="flex w-full h-full overflow-hidden gap-4">
                 {isLoggedIn ? (
                   <>
                     <MyAssets
                       selectedNFTs={selectedNFTs}
                       onSelectNFT={handleSelectNFT}
                       onRemoveNFT={handleRemoveNFT}
+                      resetSelectedNFTs={resetSelectedNFTs}
                     />
                     <div className="hidden lg:block">
                       <BridgePanel

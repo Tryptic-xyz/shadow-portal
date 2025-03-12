@@ -31,11 +31,11 @@ const NFTCard = ({
         <NetworkIcons networks={networks} />
 
         <div
-          className={`absolute flex justify-center items-center top-2 left-2 border-2 h-7 w-7 rounded-full shadow-md border-white cursor-pointer ${
-            isSelected ? "bg-blue-500 opacity-100" : "bg-blue-900/5 opacity-50"
+          className={`absolute flex justify-center items-center top-2 left-2 border-2 h-6 w-6 rounded-full shadow-md border-white cursor-pointer ${
+            isSelected ? "bg-blue-500 opacity-100" : "bg-blue-900/5 opacity-25"
           }`}
         >
-          {isSelected && <img src="/icons/checkmark.svg" alt="Selected" />}
+          {isSelected && <img src="/icons/checkmark.svg"  />}
         </div>
       </div>
       <div className="flex flex-col">
