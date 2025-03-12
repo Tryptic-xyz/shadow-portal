@@ -1,7 +1,23 @@
 {
   "routes": [
     {
-      "src": "^/fonts/(.*)",
+      "src": "^/assets/(.*\\.js)$",
+      "headers": {
+        "Content-Type": "text/javascript",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "^/assets/(.*\\.css)$",
+      "headers": {
+        "Content-Type": "text/css",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "^/fonts/(.*)$",
       "headers": {
         "Content-Type": "font/otf",
         "Cache-Control": "public, max-age=31536000, immutable"
@@ -9,8 +25,9 @@
       "dest": "/fonts/$1"
     },
     {
-      "src": "^/icons/(.*)",
+      "src": "^/icons/(.*)$",
       "headers": {
+        "Content-Type": "image/svg+xml",
         "Cache-Control": "public, max-age=31536000, immutable"
       },
       "dest": "/icons/$1"
