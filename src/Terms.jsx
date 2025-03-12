@@ -1,11 +1,15 @@
 import React from "react";
-import NavBar from "./NavBar.jsx";
+import logo from "/icons/shadow-logo.svg"
 import Footer from "./Footer.jsx"
 
 function Terms() {
   return (
-    <div className="max-w-[1520px] w-full min-h-100vh flex flex-col items-center gap-6 px-6 justify-between">
-      <NavBar />
+    <div className="max-w-[1520px] w-full h-screen flex flex-col items-center gap-6 px-6 justify-between">
+      <div className="w-full flex justify-center py-8">
+        <a href="/">
+          <img className="h-20" src={logo} alt="" />
+        </a>
+      </div>
       <div className="container mx-auto px-4 py-8 h-full text-white">
         <h1 className="text-2xl font-bold mb-4">Terms of Service</h1>
         <p className="text-sm text-gray-500">
@@ -34,7 +38,6 @@ function Terms() {
           services, including but not limited to data loss or service
           interruptions.
         </p>
-        
       </div>
       <Footer />
     </div>
