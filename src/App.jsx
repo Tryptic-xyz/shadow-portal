@@ -1,4 +1,4 @@
-import { useState, React } from "react";
+import { useState, useEffect, React } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./NavBar.jsx";
@@ -11,7 +11,17 @@ import placeholderImage from "/images/logged-out.png";
 
 function App() {
   const [selectedNFTs, setSelectedNFTs] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    // Check if the user is already logged in
+    const loggedIn = localStorage.getItem("isLoggedIn");
+    if (loggedIn === "true") {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleSelectNFT = (nft) => {
     setSelectedNFTs((prevNFTs) => {
@@ -40,6 +50,22 @@ function App() {
     setSelectedNFTs([]);
   };
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (password === "shadowportal") {
+      setIsLoggedIn(true);
+      localStorage.setItem("isLoggedIn", "true");
+      setError("");
+    } else {
+      setError("Incorrect password");
+    }
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+  };
+
   return (
     <Router>
       <Routes>
@@ -47,10 +73,10 @@ function App() {
           path="/"
           element={
             <div className="outer-ctr flex flex-col justify-between w-full h-full ">
-              <NavBar setIsLoggedIn={setIsLoggedIn} />
-              <div className="flex w-full h-full overflow-hidden gap-4">
-                {isLoggedIn ? (
-                  <>
+              {isLoggedIn ? (
+                <>
+                  <NavBar setIsLoggedIn={handleLogout} />
+                  <div className="flex w-full h-full overflow-hidden gap-4">
                     <MyAssets
                       selectedNFTs={selectedNFTs}
                       onSelectNFT={handleSelectNFT}
@@ -64,27 +90,32 @@ function App() {
                         resetSelectedNFTs={resetSelectedNFTs}
                       />
                     </div>
-                  </>
-                ) : (
-                  <div className="flex flex-col items-center justify-center w-full h-full rounded-lg border-white/30 border bg-blue-900/70 p-3 lg:p-6 relative">
-                    <img
-                      src={placeholderImage}
-                      alt="Placeholder"
-                      className="object-fit h-full w-full"
-                    />
-                    <div className="absolute m-auto flex flex-col items-center justify-center gap-y-2">
-                      <h1 className="font-headline uppercase text-blue-500 text-5xl lg:text-7xl tracking-wide text-center">
-                        Connect your wallet
-                      </h1>
-                      <p className="text-white max-w-[300px] lg:max-w-[350px] lg:text-lg text-center">
-                        Sign in with a supported wallet to view your assets and
-                        start bridging.
-                      </p>
-                    </div>
                   </div>
-                )}
-              </div>
-              <Footer />
+                  <Footer />
+                </>
+              ) : (
+                <div className="flex  items-center justify-center w-full h-full">
+                  <form
+                    onSubmit={handleLogin}
+                    className="flex  justify-center gap-2 h-14"
+                  >
+                    <input
+                      type="password"
+                      placeholder="Enter password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="mb-2 p-2 border border-gray-300 rounded bg-white h-full"
+                    />
+                    <button
+                      type="submit"
+                      className="p-2 bg-blue-300 text-white rounded"
+                    >
+                      Login
+                    </button>
+                    {error && <p className="text-red-500 mt-2">{error}</p>}
+                  </form>
+                </div>
+              )}
             </div>
           }
         />
