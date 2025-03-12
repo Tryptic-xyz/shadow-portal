@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import NFTCard from "./NFTCard.jsx";
-import placeholder from "./assets/ape-placeholder.png";
+import placeholder from "/images/ape-placeholder.png";
 import Dropdown from "./Dropdown.jsx";
 import NetworkDropdown from "./NetworkDropdown.jsx";
 import BridgePanel from "./BridgePanel.jsx";

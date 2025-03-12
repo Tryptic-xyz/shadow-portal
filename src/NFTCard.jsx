@@ -1,4 +1,3 @@
-import placeholder from "./assets/ape-placeholder.png";
 import NetworkIcons from "./NetworkIcons.jsx";
 
 const truncateAddress = (address) => {
@@ -17,14 +16,12 @@ const NFTCard = ({
 }) => {
   return (
     <div
-      className={`nft-card h-fit ${
-        isSelected ? "nft-card-selected" : ""
-      }`}
+      className={`nft-card h-fit ${isSelected ? "nft-card-selected" : ""}`}
       onClick={onSelect}
     >
       <div className="relative">
         <img
-          src={image || placeholder}
+          src={image || `/images/ape-placeholder.png`}
           alt={name}
           className="w-full aspect-4/3 object-cover rounded-lg"
         />
@@ -35,7 +32,7 @@ const NFTCard = ({
             isSelected ? "bg-blue-500 opacity-100" : "bg-blue-900/5 opacity-25"
           }`}
         >
-          {isSelected && <img src="/icons/checkmark.svg"  />}
+          {isSelected && <img src="/icons/checkmark.svg" />}
         </div>
       </div>
       <div className="flex flex-col">

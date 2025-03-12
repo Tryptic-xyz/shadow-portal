@@ -7,7 +7,7 @@ import BridgePanel from "./BridgePanel.jsx";
 import Footer from "./Footer.jsx";
 import Terms from "./Terms.jsx";
 import PrivacyPolicy from "./PrivacyPolicy.jsx";
-import placeholderImage from "./assets/logged-out.png";
+import placeholderImage from "/images/logged-out.png";
 
 function App() {
   const [selectedNFTs, setSelectedNFTs] = useState([]);

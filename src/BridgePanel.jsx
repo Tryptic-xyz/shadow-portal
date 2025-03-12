@@ -2,8 +2,8 @@ import { useState } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
 import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
-import inProgress from "./assets/bridge-progress.png"
-import complete from "./assets/bridge-complete.png";
+import inProgress from "/images/bridge-progress.png"
+import complete from "/images/bridge-complete.png";
 
 const destinationItems = [
   {
