@@ -1,8 +1,19 @@
 {
   "routes": [
     {
-      "src": "^/assets/(.*)",
-      "dest": "/assets/$1"
+      "src": "^/fonts/(.*)",
+      "headers": {
+        "Content-Type": "font/otf",
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/fonts/$1"
+    },
+    {
+      "src": "^/icons/(.*)",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      },
+      "dest": "/icons/$1"
     },
     {
       "src": "/(.*)",
