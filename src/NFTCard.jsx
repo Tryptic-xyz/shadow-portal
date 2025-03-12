@@ -17,7 +17,7 @@ const NFTCard = ({
 }) => {
   return (
     <div
-      className={`nft-card ${
+      className={`nft-card h-fit ${
         isSelected ? "nft-card-selected" : ""
       }`}
       onClick={onSelect}
