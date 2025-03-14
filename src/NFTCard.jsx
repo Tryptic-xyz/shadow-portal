@@ -10,6 +10,7 @@ const NFTCard = ({
   networks,
   onSelect,
   isSelected,
+  onImageLoad,
 }) => {
   return (
     <div
@@ -21,6 +22,7 @@ const NFTCard = ({
           src={image || `/images/ape-placeholder.png`}
           alt={name}
           className="w-full aspect-4/3 object-cover rounded-md md:rounded-lg"
+          onLoad={onImageLoad}
         />
         <NetworkIcons networks={networks} />
 

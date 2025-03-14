@@ -18,6 +18,7 @@ function MyAssets({
   const [showNotification, setShowNotification] = useState(false);
   const [showBridgePanel, setShowBridgePanel] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
   const [loading, setLoading] = useState(true);
 
   // Simulate loading delay
@@ -29,6 +30,35 @@ function MyAssets({
 
     return () => clearTimeout(timeout);
   }, [selectedNetwork, selectedCollections]); // Reload when filters change
+
+    const filteredNFTs = useMemo(() => {
+    return NFTCollection.filter((nft) => {
+      const matchesNetwork = selectedNetwork
+        ? nft.networks.some(
+            (network) => network.name === selectedNetwork && network.isActive
+          )
+        : true;
+
+      const matchesCollection = selectedCollections.length
+        ? selectedCollections.includes(nft.collection)
+        : true;
+
+      return matchesNetwork && matchesCollection;
+    });
+  }, [selectedNetwork, selectedCollections]);
+
+  useEffect(() => {
+    setLoading(true);
+    setImagesLoaded(0); // Reset image load count
+  }, [selectedNetwork, selectedCollections]);
+
+
+
+  useEffect(() => {
+    if (filteredNFTs.length > 0 && imagesLoaded === filteredNFTs.length) {
+      setLoading(false);
+    }
+  }, [imagesLoaded, filteredNFTs.length]);
 
   useEffect(() => {
     const uniqueActiveNetworks = new Set();
@@ -98,21 +128,7 @@ function MyAssets({
     [selectedNetwork]
   );
 
-  const filteredNFTs = useMemo(() => {
-    return NFTCollection.filter((nft) => {
-      const matchesNetwork = selectedNetwork
-        ? nft.networks.some(
-            (network) => network.name === selectedNetwork && network.isActive
-          )
-        : true;
 
-      const matchesCollection = selectedCollections.length
-        ? selectedCollections.includes(nft.collection)
-        : true;
-
-      return matchesNetwork && matchesCollection;
-    });
-  }, [selectedNetwork, selectedCollections]);
 
   const activeFilters = useMemo(() => {
     return [
@@ -224,6 +240,7 @@ function MyAssets({
                 networks={nft.networks}
                 onSelect={() => onSelectNFT(nft)}
                 isSelected={selectedNFTs.some((item) => item.id === nft.id)}
+                
               />
             ))}
       </div>
