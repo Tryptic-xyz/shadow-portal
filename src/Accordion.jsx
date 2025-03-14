@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-const Accordion = () => {
+const Accordion = ({ layer0 = 0.005, gasFee = 0.005 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const totalFee = (layer0 + gasFee).toFixed(2);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -16,7 +17,7 @@ const Accordion = () => {
       <div className="flex justify-between items-center cursor-pointer">
         <p className="text-white/50 text-sm font-mono uppercase">Fees</p>
         <div className="flex items-center gap-2">
-          <p className="text-white">${isOpen ? "0.10" : "0.10"}</p>
+          <p className="text-white">${totalFee}</p>
           <img
             src="/icons/chevron-down.svg"
             alt="chevron"
@@ -36,17 +37,12 @@ const Accordion = () => {
         <div className="h-[1px] mt-1 mb-2 w-full bg-white/15"></div>
         <div className="flex justify-between">
           <p className="text-white/50">Gas Fee:</p>
-          <p>$0.005</p>
+          <p>${gasFee.toFixed(2)}</p>
         </div>
 
         <div className="flex justify-between">
-          <p className="text-white/50">Application Fee:</p>
-          <p>$0.005</p>
-        </div>
-
-        <div className="flex justify-between">
-          <p className="text-white/50">Max Slippage:</p>
-          <p>1%</p>
+          <p className="text-white/50">Layer0 Fee:</p>
+          <p>${layer0.toFixed(2)}</p>
         </div>
       </div>
     </div>

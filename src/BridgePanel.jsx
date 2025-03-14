@@ -32,17 +32,13 @@ const destinationItems = [
 ];
 
 function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
-  const [isToggled, setIsToggled] = useState(false);
+  
   const [screen, setScreen] = useState("default");
 
-  const handleToggle = () => {
-    if (selectedNFTs.length > 0) {
-      setIsToggled(!isToggled);
-    }
-  };
+
 
   const handleSendClick = () => {
-    if (isToggled && selectedNFTs.length > 0) {
+    if ( selectedNFTs.length > 0) {
       setScreen("inProgress");
       setTimeout(() => {
         setScreen("successful");
@@ -55,8 +51,8 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
     setScreen("default");
   };
 
-  const isSendButtonActive = isToggled && selectedNFTs.length > 0;
-  const isToggleDisabled = selectedNFTs.length === 0;
+  const isSendButtonActive =  selectedNFTs.length > 0;
+  
 
   return (
     <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
@@ -94,37 +90,8 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
             </div>
           </div>
 
-          {/* Toggle Button */}
-          <div className="flex justify-between items-center gap-4 mt-4 z-10">
-            <h1 className="lg:text-2xl text-white">Approve selected NFTs</h1>
-            <label
-              className={`relative flex items-center cursor-pointer w-12 h-6 ${
-                isToggleDisabled ? "cursor-not-allowed opacity-50" : ""
-              }`}
-            >
-              <input
-                type="checkbox"
-                className="sr-only peer"
-                checked={isToggled}
-                onChange={handleToggle}
-                disabled={isToggleDisabled}
-              />
-              <div
-                className={`w-12 h-7 rounded-full transition-all ease-in-out-quart duration-300 ${
-                  isToggleDisabled
-                    ? "bg-gray-300"
-                    : "bg-blue-300/50 peer-checked:bg-blue-500"
-                }`}
-              ></div>
-              <div
-                className={`absolute top-0.5 left-0 w-5 h-5 rounded-full transition-all ease-in-out-quart duration-300 ${
-                  isToggled ? "left-6 bg-white" : "left-1 bg-blue-100/80"
-                } ${isToggleDisabled ? "bg-gray-400" : ""}`}
-              ></div>
-            </label>
-          </div>
 
-          <Accordion />
+          <Accordion layer0={1.29} gasFee={0.25} />
 
           <button
             className={`cursor-pointer mt-4 py-5 rounded-lg px-4 uppercase tracking-widest transition-all ease-in-out-quart z-1 ${
