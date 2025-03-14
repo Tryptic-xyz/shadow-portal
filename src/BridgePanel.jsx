@@ -32,13 +32,21 @@ const destinationItems = [
 ];
 
 function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
-  
   const [screen, setScreen] = useState("default");
 
-
+  // Get the active network from the first selected NFT
+  const getActiveNetwork = () => {
+    if (selectedNFTs.length > 0) {
+      const activeNetwork = selectedNFTs[0].networks.find(
+        (network) => network.isActive
+      );
+      return activeNetwork ? activeNetwork.name : "Unknown";
+    }
+    return "";
+  };
 
   const handleSendClick = () => {
-    if ( selectedNFTs.length > 0) {
+    if (selectedNFTs.length > 0) {
       setScreen("inProgress");
       setTimeout(() => {
         setScreen("successful");
@@ -51,17 +59,32 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
     setScreen("default");
   };
 
-  const isSendButtonActive =  selectedNFTs.length > 0;
-  
+  const isSendButtonActive = selectedNFTs.length > 0;
 
   return (
     <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
       {screen === "default" && (
         <>
-          {/* Destination Dropdown */}
-          <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-            <p className="text-white lg:text-xl">Destination</p>
-            <DestinationDropdown menuItems={destinationItems} />
+          <div className="flex flex-col gap-y-4">
+            {/* Origin Network */}
+            <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
+              <p className="text-white lg:text-xl">Origin Network</p>
+              <div className="flex items-center gap-2">
+                {getActiveNetwork() !== "" && (
+                  <img
+                    src={`./icons/${getActiveNetwork().toLowerCase()}.svg`}
+                    alt={getActiveNetwork()}
+                    className="w-6 h-6 rounded-full border border-white/0"
+                  />
+                )}
+                <p className="text-white lg:text-xl">{getActiveNetwork()}</p>
+              </div>
+            </div>
+            {/* Destination Dropdown */}
+            <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
+              <p className="text-white lg:text-xl">Destination</p>
+              <DestinationDropdown menuItems={destinationItems} />
+            </div>
           </div>
 
           {/* Selected NFT Panel */}
@@ -89,7 +112,6 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               )}
             </div>
           </div>
-
 
           <Accordion layer0={1.29} gasFee={0.25} />
 
