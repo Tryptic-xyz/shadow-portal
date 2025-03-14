@@ -1,54 +1,20 @@
-import NetworkIcons from "./NetworkIcons.jsx";
 import "./styles/nft-card.css"
-import truncateAddress from "./utils/truncateAddress"; 
 
-const NFTCard = ({
-  image,
-  collection,
-  name,
-  address,
-  networks,
-  onSelect,
-  isSelected,
-}) => {
+const SkeletonCard= () => {
   return (
-    <div
-      className={`nft-card h-fit ${isSelected ? "nft-card-selected" : ""}`}
-      onClick={onSelect}
-    >
+    <div className="skeleton-card">
       <div className="relative">
-        <img
-          src={image || `/images/ape-placeholder.png`}
-          alt={name}
-          className="w-full aspect-4/3 object-cover rounded-md md:rounded-lg"
-        />
-        <NetworkIcons networks={networks} />
-
-        <div
-          className={`absolute flex justify-center items-center top-2 left-2 border md:border-2 h-4 w-4 md:h-6 md:w-6 rounded-full shadow-md border-white cursor-pointer ${
-            isSelected ? "bg-blue-500 opacity-100" : "bg-blue-900/5 opacity-25"
-          }`}
-        >
-          {isSelected && <img src="/icons/checkmark.svg" />}
-        </div>
+        <div className="w-full aspect-4/3 bg-blue-300/10 h-fit rounded-md md:rounded-lg"></div>
       </div>
-      <div className="flex flex-col">
-        <p
-          className={`font-mono uppercase tracking-wide md:tracking-widest text-[10px] md:text-sm ${
-            isSelected ? "text-white" : "text-blue-300"
-          }`}
-        >
-          {collection}
-        </p>
-        <div className="flex flex-col md:flex-row text-sm md:justify-between md:text-lg">
-          <p className="text-blue-100 text-base">{name}</p>
-          <p className={isSelected ? "text-blue-100" : "text-blue-100/50"}>
-            {truncateAddress(address)}
-          </p>
+      <div className="flex flex-col gap-y-2">
+        <div className="w-1/2 bg-blue-300/10 h-3"></div>
+        <div className="flex flex-col md:flex-row  justify-between gap-2">
+          <div className="w-full bg-blue-300/10 h-3"></div>
+          <div className="w-1/2 bg-blue-300/10 h-3"></div>
         </div>
       </div>
     </div>
   );
 };
 
-export default NFTCard;
+export default SkeletonCard;

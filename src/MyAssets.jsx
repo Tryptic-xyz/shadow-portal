@@ -4,6 +4,7 @@ import placeholder from "/images/ape-placeholder.png";
 import BridgePanel from "./BridgePanel.jsx";
 import NFTCollection from "./data/nftCollection.js";
 import FilterDropdown from "./FilterDropdown.jsx";
+import SkeletonCard from "./SkeletonCard.jsx"
 
 function MyAssets({
   onSelectNFT,
@@ -17,6 +18,17 @@ function MyAssets({
   const [showNotification, setShowNotification] = useState(false);
   const [showBridgePanel, setShowBridgePanel] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading delay
+  useEffect(() => {
+    setLoading(true);
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust time as needed
+
+    return () => clearTimeout(timeout);
+  }, [selectedNetwork, selectedCollections]); // Reload when filters change
 
   useEffect(() => {
     const uniqueActiveNetworks = new Set();
@@ -200,18 +212,20 @@ function MyAssets({
       )}
 
       <div className="nft-grid h-full scrollbar-hide">
-        {filteredNFTs.map((nft) => (
-          <NFTCard
-            key={nft.id}
-            image={nft.image || placeholder}
-            collection={nft.collection}
-            name={nft.name}
-            address={nft.address}
-            networks={nft.networks}
-            onSelect={() => handleSelectNFT(nft)}
-            isSelected={selectedNFTs.some((item) => item.id === nft.id)}
-          />
-        ))}
+        {loading
+          ? filteredNFTs.map((_, index) => <SkeletonCard key={index} />)
+          : filteredNFTs.map((nft) => (
+              <NFTCard
+                key={nft.id}
+                image={nft.image || placeholder}
+                collection={nft.collection}
+                name={nft.name}
+                address={nft.address}
+                networks={nft.networks}
+                onSelect={() => onSelectNFT(nft)}
+                isSelected={selectedNFTs.some((item) => item.id === nft.id)}
+              />
+            ))}
       </div>
 
       {showNotification && selectedNFTs.length > 0 && (

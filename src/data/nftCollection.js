@@ -146,15 +146,6 @@ const NFTCollection = [
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "Apechain", isActive: true }],
   },
-  {
-    id: 15,
-    name: "Bored Ape #77",
-    collection: "Bored Ape Yacht Club",
-    image:
-      "https://img.decrypt.co/insecure/rs:fit:3840:0:0:0/plain/https://cdn.decrypt.co/wp-content/uploads/2022/11/bored-ape-3001-bieber-gID_7.png@webp",
-    address: "0x1234abcd5678efgh9012ijkl",
-    networks: [{ name: "Abstract", isActive: true }],
-  },
 ];
 
 export default NFTCollection;
