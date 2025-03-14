@@ -1,17 +1,45 @@
+import { useState, useEffect } from "react";
 import NetworkIcons from "./NetworkIcons.jsx";
-import "./styles/nft-card.css"
-import truncateAddress from "./utils/truncateAddress"; 
+import "./styles/nft-card.css";
+import SkeletonCard from "./SkeletonCard.jsx";
 
 const NFTCard = ({
   image,
   collection,
   name,
-  address,
+  
   networks,
   onSelect,
   isSelected,
   onImageLoad,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  // Preload the image
+  useEffect(() => {
+    const img = new Image();
+    img.src = image || `/images/ape-placeholder.png`;
+
+    img.onload = () => {
+      console.log("Image loaded successfully:", name);
+      setImageUrl(img.src);
+      setIsLoading(false);
+      if (onImageLoad) onImageLoad();
+    };
+
+    img.onerror = () => {
+      console.log("Image failed to load:", name);
+      setImageUrl(`/images/ape-placeholder.png`);
+      setIsLoading(false);
+      if (onImageLoad) onImageLoad();
+    };
+  }, [image, name, onImageLoad]);
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
+
   return (
     <div
       className={`nft-card h-fit ${isSelected ? "nft-card-selected" : ""}`}
@@ -19,10 +47,9 @@ const NFTCard = ({
     >
       <div className="relative">
         <img
-          src={image || `/images/ape-placeholder.png`}
+          src={imageUrl}
           alt={name}
           className="w-full aspect-4/3 object-cover rounded-md md:rounded-lg"
-          onLoad={onImageLoad}
         />
         <NetworkIcons networks={networks} />
 
@@ -43,10 +70,8 @@ const NFTCard = ({
           {collection}
         </p>
         <div className="flex flex-col md:flex-row text-sm md:justify-between md:text-lg">
-          <p className="text-blue-100 text-base">{name}</p>
-          <p className={isSelected ? "text-blue-100" : "text-blue-100/50"}>
-            {truncateAddress(address)}
-          </p>
+          <p className="text-blue-100 text-base md:text-lg">{name}</p>
+
         </div>
       </div>
     </div>

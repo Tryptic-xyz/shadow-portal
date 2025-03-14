@@ -4,7 +4,6 @@ import placeholder from "/images/ape-placeholder.png";
 import BridgePanel from "./BridgePanel.jsx";
 import NFTCollection from "./data/nftCollection.js";
 import FilterDropdown from "./FilterDropdown.jsx";
-import SkeletonCard from "./SkeletonCard.jsx"
 
 function MyAssets({
   onSelectNFT,
@@ -18,20 +17,9 @@ function MyAssets({
   const [showNotification, setShowNotification] = useState(false);
   const [showBridgePanel, setShowBridgePanel] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [imagesLoaded, setImagesLoaded] = useState(0);
-  const [loading, setLoading] = useState(true);
 
-  // Simulate loading delay
-  useEffect(() => {
-    setLoading(true);
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 2000); // Adjust time as needed
-
-    return () => clearTimeout(timeout);
-  }, [selectedNetwork, selectedCollections]); // Reload when filters change
-
-    const filteredNFTs = useMemo(() => {
+  // Filter NFTs based on selected network and collections
+  const filteredNFTs = useMemo(() => {
     return NFTCollection.filter((nft) => {
       const matchesNetwork = selectedNetwork
         ? nft.networks.some(
@@ -47,19 +35,7 @@ function MyAssets({
     });
   }, [selectedNetwork, selectedCollections]);
 
-  useEffect(() => {
-    setLoading(true);
-    setImagesLoaded(0); // Reset image load count
-  }, [selectedNetwork, selectedCollections]);
-
-
-
-  useEffect(() => {
-    if (filteredNFTs.length > 0 && imagesLoaded === filteredNFTs.length) {
-      setLoading(false);
-    }
-  }, [imagesLoaded, filteredNFTs.length]);
-
+  // Initialize network items
   useEffect(() => {
     const uniqueActiveNetworks = new Set();
     NFTCollection.forEach((nft) => {
@@ -84,18 +60,16 @@ function MyAssets({
       action: () => handleNetworkSelect(null),
     });
 
-    const formattedNetworkItems = activeNetworkItems.reduce(
-      (acc, item, index) => {
+    setNetworkItems(
+      activeNetworkItems.reduce((acc, item, index) => {
         if (index > 0) acc.push("divider");
         acc.push(item);
         return acc;
-      },
-      []
+      }, [])
     );
-
-    setNetworkItems(formattedNetworkItems);
   }, []);
 
+  // Hide notification when no NFTs are selected
   useEffect(() => {
     if (selectedNFTs.length === 0) {
       setShowNotification(false);
@@ -127,8 +101,6 @@ function MyAssets({
     },
     [selectedNetwork]
   );
-
-
 
   const activeFilters = useMemo(() => {
     return [
@@ -162,29 +134,16 @@ function MyAssets({
         alert("The limit to bridge is 3 assets at a time.");
         return;
       }
-
       onSelectNFT(nft);
       setShowNotification(true);
     },
     [selectedNFTs, onSelectNFT]
   );
 
-  const handleShowBridgePanel = useCallback(() => {
-    setShowBridgePanel(true);
-  }, []);
-
-  const handleCloseBridgePanel = useCallback(() => {
-    setShowBridgePanel(false);
-  }, []);
-
-  const handleToggleCollapse = useCallback(() => {
-    setIsCollapsed((prev) => !prev);
-  }, []);
-
   return (
     <div className="asset-ctr h-full shadow-xl overflow-hidden">
       <div className="bottom-gradient"></div>
-      <div className="flex gap-y-2  items-stretch justify-between">
+      <div className="flex gap-y-2 items-stretch justify-between">
         <div className="title flex items-center gap-3">
           <h1 className="font-headline uppercase text-blue-300 text-4xl md:text-5xl tracking-wide">
             My Assets
@@ -194,7 +153,7 @@ function MyAssets({
           </div>
         </div>
 
-        <div className="dropdowns flex gap-3 h-full ">
+        <div className="dropdowns flex gap-3 h-full">
           <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}
@@ -228,21 +187,17 @@ function MyAssets({
       )}
 
       <div className="nft-grid h-full scrollbar-hide">
-        {loading
-          ? filteredNFTs.map((_, index) => <SkeletonCard key={index} />)
-          : filteredNFTs.map((nft) => (
-              <NFTCard
-                key={nft.id}
-                image={nft.image || placeholder}
-                collection={nft.collection}
-                name={nft.name}
-                address={nft.address}
-                networks={nft.networks}
-                onSelect={() => onSelectNFT(nft)}
-                isSelected={selectedNFTs.some((item) => item.id === nft.id)}
-                
-              />
-            ))}
+        {filteredNFTs.map((nft) => (
+          <NFTCard
+            key={nft.id}
+            image={nft.image || placeholder}
+            collection={nft.collection}
+            name={nft.name}
+            networks={nft.networks}
+            onSelect={() => handleSelectNFT(nft)}
+            isSelected={selectedNFTs.some((item) => item.id === nft.id)}
+          />
+        ))}
       </div>
 
       {showNotification && selectedNFTs.length > 0 && (
@@ -253,7 +208,7 @@ function MyAssets({
             </p>
             <button
               className="text-xs text-blue-100/50 uppercase"
-              onClick={handleToggleCollapse}
+              onClick={() => setIsCollapsed(!isCollapsed)}
             >
               {isCollapsed ? "Expand" : "Collapse"}
             </button>
@@ -279,7 +234,6 @@ function MyAssets({
                         <p className="">{nft.name}</p>
                       </div>
                     </div>
-
                     <button
                       className="bg-white/15 transition-colors duration-300 hover:bg-white/30 rounded-full p-2 cursor-pointer"
                       onClick={() => onRemoveNFT(nft)}
@@ -297,7 +251,7 @@ function MyAssets({
           )}
           <button
             className="p-4 rounded-lg bg-blue-500 text-white uppercase font-mono tracking-wider"
-            onClick={handleShowBridgePanel}
+            onClick={() => setShowBridgePanel(true)}
           >
             {selectedNFTs.length > 1 ? "Bridge Assets" : "Bridge Asset"}
           </button>
@@ -309,7 +263,7 @@ function MyAssets({
           <div className="relative w-full px-4">
             <button
               className="absolute -top-10 right-1 text-white bg-red-500 rounded-full h-6 w-6 z-100"
-              onClick={handleCloseBridgePanel}
+              onClick={() => setShowBridgePanel(false)}
             >
               ✕
             </button>
