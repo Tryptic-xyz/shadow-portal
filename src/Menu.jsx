@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./styles/dropdown.css";
 import walletItems from "./data/walletItems";
 import useClickOutside from "./hooks/useClickOutside"; 
@@ -33,7 +33,7 @@ const truncateAddress = (address) => {
 
 const Menu = ({  setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedInLocal] = useState(true);
+  const  setIsLoggedInLocal = useState(true);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const itemsRef = useRef([]);
