@@ -1,14 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import "./styles/dropdown.css";
+import walletItems from "./data/walletItems";
 
-const walletItems = [
-  {
-    walletType: "MetaMask",
-    walletTypeIcon: "/icons/metamask.svg",
-    walletTypeColor: "#E27625",
-    address: "0x1234abcd5678efgh9012ijkl",
-  },
-];
 
 const truncateAddress = (address) => {
   if (!address) return "";
@@ -147,7 +140,7 @@ const ConnectWallet = ({ setIsLoggedIn }) => {
 
           {/* Disconnect Wallet */}
           <button
-            className="border-blue-500 w-full py-3 font-mono uppercase text-white border flex justify-center rounded-md mt-4 bg-blue-500/10 hover:bg-blue-500/80 transition-color duration-300 tracking-widest text-sm cursor-pointer"
+            className="border-blue-500 w-full py-3 font-mono uppercase text-white border flex justify-center rounded-md md:mt-4 bg-blue-500/10 hover:bg-blue-500/80 transition-color duration-300 tracking-widest text-sm cursor-pointer"
             onClick={handleDisconnect}
           >
             Disconnect
