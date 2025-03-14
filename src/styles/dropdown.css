@@ -1,10 +1,10 @@
 @import "./index.css";
 .dropdown-ctr {
-  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col;
+  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col w-auto md:w-max;
 }
 
 .menu-item {
-  @apply flex items-center w-full gap-3 px-4 min-w-52 py-5 rounded-md hover:bg-blue-100/15 cursor-pointer font-mono uppercase font-medium text-blue-100 tracking-widest text-sm transition-all duration-500 ease-in-out-quart;
+  @apply flex items-center w-full gap-3 px-4 min-w-52 py-3 md:py-5 rounded-md hover:bg-blue-100/15 cursor-pointer font-mono uppercase font-medium text-blue-100 tracking-widest text-sm transition-all duration-500 ease-in-out-quart;
 }
 
 .line {
@@ -31,7 +31,22 @@
     background: linear-gradient(0deg, rgba(255, 255, 255, 0.00) 75.06%, rgba(255, 255, 255, 0.15) 100%), linear-gradient(89deg, rgba(162, 129, 255, 0.15) 7.81%, rgba(235, 130, 128, 0.15) 31.14%, rgba(235, 191, 154, 0.15) 65.93%, rgba(137, 208, 255, 0.15) 90.66%), rgba(3, 10, 33, 0.80);
 }
 
-.nft-grid {
-  @apply grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 overflow-y-scroll  pb-4;
-  
+.dropdown-btn {
+  @apply bg-white/10 rounded-lg text-white px-4 shadow-md transition-all duration-500 cursor-pointer relative hover:bg-white/0 text-sm md:text-base justify-center md:justify-start;
+}
+
+.dropdown-btn:after {
+  @apply bg-gradient-to-b from-white/30 to-[#999]/15 h-full w-full left-0 top-0;
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  opacity: 0;
+  transition: all 500ms;
+}
+
+.dropdown-btn:hover:after {
+  opacity: 1;
+}
+.menu-label {
+  @apply text-white/30 py-2 ml-2 text-xs uppercase font-mono tracking-widest;
 }

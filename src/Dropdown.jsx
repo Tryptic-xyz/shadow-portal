@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "./dropdown.css";
+import "./styles/dropdown.css";
 
 const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,7 +39,7 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="primary-btn h-full w-full md:w-auto flex items-center gap-3 transition-all"
+        className="dropdown-btn h-full w-full md:w-auto flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label={`${buttonName} Dropdown`}

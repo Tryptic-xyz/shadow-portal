@@ -4,7 +4,7 @@
 }
 
 body {
-  @apply h-screen;
+  height: 100svh;
 }
 
 .gradient-border {
@@ -13,7 +13,7 @@ body {
 }
 
 .asset-ctr {
-  @apply w-full bg-gradient-to-t from-blue-900/50 to-blue-700 rounded-lg px-4 lg:px-6 pt-3 lg:pt-5 flex flex-col gap-4 lg:gap-6 relative;
+  @apply w-full bg-gradient-to-t from-blue-900/50 to-blue-700 rounded-lg px-3 md:px-4 lg:px-6 pt-3 lg:pt-5 flex flex-col gap-4 lg:gap-6 relative;
 }
 
 .asset-ctr:before {
@@ -28,5 +28,5 @@ body {
 }
 
 .bottom-gradient {
-  @apply absolute bottom-0 left-0 h-28 w-full bg-gradient-to-t from-blue-900/30 to-blue-900/0 z-10 pointer-events-none;
+  @apply absolute bottom-0 left-0 h-28 w-full bg-gradient-to-t from-blue-900/50 to-blue-900/0 z-10 pointer-events-none rounded-b-lg;
 }

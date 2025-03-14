@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "./dropdown.css";
+import "./styles/dropdown.css";
 
 const NetworkDropdown = ({ menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +36,7 @@ const NetworkDropdown = ({ menuItems, onSelect }) => {
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="primary-btn w-full md:w-auto h-full flex items-center gap-3 transition-all"
+        className="dropdown-btn w-full  md:w-auto h-full flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label="Network Dropdown"
@@ -61,7 +61,7 @@ const NetworkDropdown = ({ menuItems, onSelect }) => {
             <img
               src="/icons/chevron-down.svg"
               alt="chevron"
-              className="w-4 h-4"
+              className="w-3 md:w-4 h-3 md:h-4"
             />
           </>
         )}

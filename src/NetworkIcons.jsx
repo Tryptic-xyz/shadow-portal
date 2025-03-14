@@ -11,7 +11,7 @@ const NetworkIcons = ({ networks }) => {
           <img
             src={`/icons/${network.name}.svg`}
             alt={network.name}
-            className={network.isActive ? "opacity-100" : "opacity-20"}
+            className={ network.isActive ? "opacity-100" : "opacity-20"}
           />
         </div>
       ))}

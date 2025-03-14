@@ -1,13 +1,12 @@
 import { useState, useEffect, React } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./styles/app.css";
 import NavBar from "./NavBar.jsx";
 import MyAssets from "./MyAssets.jsx";
 import BridgePanel from "./BridgePanel.jsx";
 import Footer from "./Footer.jsx";
 import Terms from "./Terms.jsx";
 import PrivacyPolicy from "./PrivacyPolicy.jsx";
-import placeholderImage from "/images/logged-out.png";
 
 function App() {
   const [selectedNFTs, setSelectedNFTs] = useState([]);
