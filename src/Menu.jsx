@@ -55,16 +55,6 @@ const Menu = ({  setIsLoggedIn }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
 
   return (
     <div className="h-11 md:h-full w-fit gradient-border cursor-pointer" ref={dropdownRef}>
