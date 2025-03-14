@@ -1,9 +1,5 @@
-function SelectedNFT({ nft, onRemoveNFT}) {
-  const truncateAddress = (address) => {
-    if (!address) return "";
-    return `${address.slice(0, 5)}...${address.slice(-4)}`;
-  };
-
+import truncateAddress from "./utils/truncateAddress";
+function SelectedNFT({ nft, onRemoveNFT }) {
   if (!nft) {
     return <p className="text-white/50">No NFT selected</p>;
   }

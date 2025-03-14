@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import "./styles/dropdown.css";
 import walletItems from "./data/walletItems";
 import useClickOutside from "./hooks/useClickOutside"; 
+import truncateAddress from "./utils/truncateAddress"; 
 
 const menuItems = [
   {
@@ -25,10 +26,6 @@ const menuItems = [
   },
 ];
 
-const truncateAddress = (address) => {
-  if (!address) return "";
-  return `${address.slice(0, 5)}...${address.slice(-4)}`;
-};
 
 
 const Menu = ({  setIsLoggedIn }) => {

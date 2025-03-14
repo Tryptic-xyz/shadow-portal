@@ -1,12 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import "./styles/dropdown.css";
 import walletItems from "./data/walletItems";
+import truncateAddress from "./utils/truncateAddress"; 
 
-
-const truncateAddress = (address) => {
-  if (!address) return "";
-  return `${address.slice(0, 5)}...${address.slice(-4)}`;
-};
 
 const ConnectWallet = ({ setIsLoggedIn }) => {
   const [isOpen, setIsOpen] = useState(false);
