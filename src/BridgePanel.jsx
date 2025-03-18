@@ -2,37 +2,34 @@ import { useState } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
 import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
-import inProgress from "/images/bridge-progress.png"
+import inProgress from "/images/bridge-progress.png";
 import complete from "/images/bridge-complete.png";
 
 const destinationItems = [
   {
     name: "Apechain",
-    icon: "Apechain",
-    
+    icon: "apechain",
   },
   "divider",
   {
     name: "Ethereum",
-    icon: "Ethereum",
-    
+    icon: "ethereum",
   },
   "divider",
   {
     name: "Base",
-    icon: "Base",
-    
+    icon: "base",
   },
   "divider",
   {
     name: "Abstract",
-    icon: "Abstract",
-    
+    icon: "abstract",
   },
 ];
 
 function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   const [screen, setScreen] = useState("default");
+  const [selectedDestination, setSelectedDestination] = useState(null);
 
   // Get the active network from the first selected NFT
   const getActiveNetwork = () => {
@@ -46,7 +43,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   };
 
   const handleSendClick = () => {
-    if (selectedNFTs.length > 0) {
+    if (selectedNFTs.length > 0 && selectedDestination) {
       setScreen("inProgress");
       setTimeout(() => {
         setScreen("successful");
@@ -57,40 +54,58 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   const handleCloseClick = () => {
     resetSelectedNFTs();
     setScreen("default");
+    setSelectedDestination(null);
   };
 
-  const isSendButtonActive = selectedNFTs.length > 0;
+  const isSendButtonActive = selectedNFTs.length > 0 && selectedDestination;
 
   return (
     <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
       {screen === "default" && (
         <>
           <div className="flex flex-col gap-y-4">
-            {/* Origin Network */}
-            <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-              <p className="text-white lg:text-xl">Origin Network</p>
-              <div className="flex items-center gap-2">
-                {getActiveNetwork() !== "" && (
-                  <img
-                    src={`./icons/${getActiveNetwork().toLowerCase()}.svg`}
-                    alt={getActiveNetwork()}
-                    className="w-6 h-6 rounded-full border border-white/0"
-                  />
+            <div className="flex flex-col gap-y-2">
+              <p className="text-white lg:text-xl">Source Chain</p>
+              <div
+                className={`flex w-full ${
+                  selectedNFTs.length > 0
+                    ? "bg-blue-500"
+                    : "bg-gradient-to-b from-white/0 to-white/15"
+                } justify-center items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl`}
+              >
+                {selectedNFTs.length > 0 ? (
+                  <div className="flex items-center gap-2">
+                    {getActiveNetwork() !== "" && (
+                      <img
+                        src={`./icons/${getActiveNetwork()}.svg`}
+                        alt={getActiveNetwork()}
+                        className="w-6 h-6 rounded-full border border-white/0"
+                      />
+                    )}
+                    <p className="text-white lg:text-xl">
+                      {getActiveNetwork()}
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-white/50">No NFT selected</p>
                 )}
-                <p className="text-white lg:text-xl">{getActiveNetwork()}</p>
               </div>
             </div>
+
             {/* Destination Dropdown */}
-            <div className="flex w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-              <p className="text-white lg:text-xl">Destination</p>
-              <DestinationDropdown menuItems={destinationItems} />
+            <div className="flex flex-col gap-y-2">
+              <p className="text-white lg:text-xl">Destination Chain</p>
+              <DestinationDropdown
+                menuItems={destinationItems}
+                onSelect={(item) => setSelectedDestination(item)}
+              />
             </div>
           </div>
 
           {/* Selected NFT Panel */}
           <div className="flex flex-col gap-y-2 z-10">
             <div className="w-full flex justify-between items-center">
-              <h1 className="lg:text-2xl text-white pl-1">Selected NFTs</h1>
+              <h1 className="lg:text-xl text-white pl-1">Selected NFTs</h1>
               {selectedNFTs.length > 0 && (
                 <div className="bg-blue-500 tracking-wider uppercase text-sm px-4 py-0.5 rounded-full text-white/80">
                   {selectedNFTs.length} Selected
@@ -99,16 +114,11 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
             </div>
 
             <div className="flex flex-col gap-y-8 w-full bg-gradient-to-b from-white/0 to-white/15 justify-between items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl">
-              {selectedNFTs.length > 0 ? (
-                selectedNFTs.map((nft) => (
-                  <SelectedNFT
-                    key={nft.id}
-                    nft={nft}
-                    onRemoveNFT={onRemoveNFT}
-                  />
-                ))
-              ) : (
-                <p className="text-white/50">No NFT selected</p>
+              {selectedNFTs.map((nft) => (
+                <SelectedNFT key={nft.id} nft={nft} onRemoveNFT={onRemoveNFT} />
+              ))}
+              {selectedNFTs.length === 0 && (
+                <SelectedNFT nft={null} onRemoveNFT={onRemoveNFT} />
               )}
             </div>
           </div>
@@ -168,3 +178,6 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
 }
 
 export default BridgePanel;
+
+
+

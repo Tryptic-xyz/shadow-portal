@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./styles/dropdown.css";
 import walletItems from "./data/walletItems";
 import truncateAddress from "./utils/truncateAddress"; 
+import useClickOutside from "./hooks/useClickOutside"; 
 
 
 const ConnectWallet = ({ setIsLoggedIn }) => {
@@ -12,15 +13,7 @@ const ConnectWallet = ({ setIsLoggedIn }) => {
   const buttonRef = useRef(null);
 
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef);
 
   // Copy address to clipboard
   const handleCopy = (address) => {

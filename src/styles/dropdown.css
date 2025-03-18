@@ -1,6 +1,6 @@
 @import "./index.css";
 .dropdown-ctr {
-  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col w-full md:w-max;
+  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col w-full ;
 }
 
 .menu-item {

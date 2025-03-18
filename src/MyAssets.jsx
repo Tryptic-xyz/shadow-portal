@@ -4,6 +4,7 @@ import placeholder from "/images/ape-placeholder.png";
 import BridgePanel from "./BridgePanel.jsx";
 import NFTCollection from "./data/nftCollection.js";
 import FilterDropdown from "./FilterDropdown.jsx";
+import Dropdown from "./Dropdown.jsx";
 
 function MyAssets({
   onSelectNFT,
@@ -118,7 +119,7 @@ function MyAssets({
       if (index > 0) acc.push("divider");
       acc.push({
         name: collection,
-        icon: "Apechain",
+        icon: "apechain",
         action: () => handleCollectionSelect(collection),
       });
       return acc;
@@ -154,6 +155,7 @@ function MyAssets({
         </div>
 
         <div className="dropdowns flex gap-3 h-full">
+          <Dropdown  buttonName="Select a Collection" menuItems={collectionItems}/>
           <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}

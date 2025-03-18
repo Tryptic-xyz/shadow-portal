@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./styles/dropdown.css";
+import useClickOutside from "./hooks/useClickOutside"; 
 
 const NetworkDropdown = ({ menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,15 +10,7 @@ const NetworkDropdown = ({ menuItems, onSelect }) => {
   const itemsRef = useRef([]);
 
   // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef);
 
   // Update selected item when an item is clicked
   const handleItemClick = (item) => {

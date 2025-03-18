@@ -1,7 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import "./styles/dropdown.css";
+import useClickOutside from "./hooks/useClickOutside"; 
 
-const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
+const Dropdown = ({ buttonName, menuItems, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const dropdownRef = useRef(null);
@@ -11,28 +12,18 @@ const Dropdown = ({ buttonName = "Menu", menuItems, onSelect }) => {
   const handleSelect = (item) => {
     if (item !== "divider") {
       if (selectedItem?.name === item.name) {
-        
         setSelectedItem(null);
         onSelect(null);
       } else {
         setSelectedItem(item);
         onSelect(item.name);
-        
       }
       setIsOpen(false);
     }
   };
 
-  // Close dropdown when clicking outsid
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  // Close dropdown when clicking outside
+  useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef);
 
   return (
     <div className="h-full w-full md:w-auto gradient-border" ref={dropdownRef}>

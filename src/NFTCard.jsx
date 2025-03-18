@@ -7,7 +7,6 @@ const NFTCard = ({
   image,
   collection,
   name,
-  
   networks,
   onSelect,
   isSelected,
