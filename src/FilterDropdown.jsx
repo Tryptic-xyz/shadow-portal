@@ -1,17 +1,16 @@
 import { useState, useRef } from "react";
-import useClickOutside from "./hooks/useClickOutside"; 
+import useClickOutside from "./hooks/useClickOutside";
 
 const FilterDropdown = ({
   networkItems,
-  collectionItems,
   onNetworkSelect,
-  onCollectionSelect,
+  onLockedStatusSelect,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
 
-  useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef); 
+  useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef);
 
   return (
     <div className="h-full w-full md:w-auto gradient-border" ref={dropdownRef}>
@@ -63,32 +62,29 @@ const FilterDropdown = ({
               </li>
             )
           )}
-          <li className="menu-label">Collections</li>
-          {collectionItems.map((item, index) =>
-            item === "divider" ? (
-              <hr key={index} className="border-blue-100/15" />
-            ) : (
-              <li
-                key={index}
-                tabIndex="0"
-                className="menu-item"
-                role="menuitem"
-                onClick={() => {
-                  onCollectionSelect(item.name);
-                  setIsOpen(false);
-                }}
-              >
-                {item.icon && (
-                  <img
-                    src={`/icons/${item.icon}.svg`}
-                    alt={item.name}
-                    className="w-6 h-6"
-                  />
-                )}
-                {item.name}
-              </li>
-            )
-          )}
+          <li className="menu-label">Locked Status</li>
+          <li
+            tabIndex="0"
+            className="menu-item"
+            role="menuitem"
+            onClick={() => {
+              onLockedStatusSelect("Locked");
+              setIsOpen(false);
+            }}
+          >
+            Locked
+          </li>
+          <li
+            tabIndex="0"
+            className="menu-item"
+            role="menuitem"
+            onClick={() => {
+              onLockedStatusSelect("Unlocked");
+              setIsOpen(false);
+            }}
+          >
+            Unlocked
+          </li>
         </ul>
       </div>
     </div>

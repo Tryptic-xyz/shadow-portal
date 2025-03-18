@@ -9,6 +9,7 @@ const NFTCollection = [
       { name: "ethereum", isActive: true },
       { name: "base", isActive: false },
     ],
+    lockedStatus: false,
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const NFTCollection = [
       { name: "base", isActive: false },
       { name: "abstract", isActive: false },
     ],
+    lockedStatus: true,
   },
   {
     id: 3,
@@ -35,6 +37,7 @@ const NFTCollection = [
       { name: "apechain", isActive: true },
       { name: "abstract", isActive: false },
     ],
+    lockedStatus: false,
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ const NFTCollection = [
       { name: "ethereum", isActive: false },
       { name: "apechain", isActive: true },
     ],
+    lockedStatus: false,
   },
   {
     id: 5,
@@ -54,6 +58,7 @@ const NFTCollection = [
     image: "https://www.larvalabs.com/cryptopunks/cryptopunk005.png",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "apechain", isActive: true }],
+    lockedStatus: false,
   },
   {
     id: 6,
@@ -63,6 +68,7 @@ const NFTCollection = [
       "https://media.licdn.com/dms/image/v2/C5612AQEhtPNooqNUeg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1641999038804?e=2147483647&v=beta&t=ysRtp4HROlBk4HpDBBXq_YKlS6pI98ap21naFFLdWgM",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "abstract", isActive: true }],
+    lockedStatus: false,
   },
   {
     id: 7,
@@ -76,6 +82,7 @@ const NFTCollection = [
       { name: "apechain", isActive: true },
       { name: "abstract", isActive: false },
     ],
+    lockedStatus: false,
   },
   {
     id: 8,
@@ -87,8 +94,8 @@ const NFTCollection = [
       { name: "ethereum", isActive: true },
       { name: "base", isActive: false },
     ],
+    lockedStatus: false,
   },
-
   {
     id: 9,
     name: "Mutant Ape #33",
@@ -101,6 +108,7 @@ const NFTCollection = [
       { name: "apechain", isActive: true },
       { name: "abstract", isActive: false },
     ],
+    lockedStatus: false,
   },
   {
     id: 10,
@@ -112,6 +120,7 @@ const NFTCollection = [
       { name: "ethereum", isActive: false },
       { name: "apechain", isActive: true },
     ],
+    lockedStatus: true,
   },
   {
     id: 11,
@@ -120,6 +129,7 @@ const NFTCollection = [
     image: "https://www.larvalabs.com/cryptopunks/cryptopunk018.png",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "apechain", isActive: true }],
+    lockedStatus: false,
   },
   {
     id: 12,
@@ -129,6 +139,7 @@ const NFTCollection = [
       "https://boredapeyachtclub.com/_next/image?url=%2Fimages%2Ftransitions%2Fbayc%2F1.webp&w=1200&q=75",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "abstract", isActive: true }],
+    lockedStatus: false,
   },
   {
     id: 13,
@@ -137,6 +148,7 @@ const NFTCollection = [
     image: "",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "abstract", isActive: true }],
+    lockedStatus: false,
   },
   {
     id: 14,
@@ -145,6 +157,7 @@ const NFTCollection = [
     image: "https://www.larvalabs.com/cryptopunks/cryptopunk020.png",
     address: "0x1234abcd5678efgh9012ijkl",
     networks: [{ name: "apechain", isActive: true }],
+    lockedStatus: false,
   },
 ];
 

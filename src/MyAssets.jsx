@@ -15,11 +15,12 @@ function MyAssets({
   const [selectedNetwork, setSelectedNetwork] = useState(null);
   const [selectedCollections, setSelectedCollections] = useState([]);
   const [networkItems, setNetworkItems] = useState([]);
+  const [selectedLockedStatus, setSelectedLockedStatus] = useState(null);
   const [showNotification, setShowNotification] = useState(false);
   const [showBridgePanel, setShowBridgePanel] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Filter NFTs based on selected network and collections
+  // Filter NFTs based on selected network and locked status
   const filteredNFTs = useMemo(() => {
     return NFTCollection.filter((nft) => {
       const matchesNetwork = selectedNetwork
@@ -28,13 +29,16 @@ function MyAssets({
           )
         : true;
 
-      const matchesCollection = selectedCollections.length
-        ? selectedCollections.includes(nft.collection)
-        : true;
+      const matchesLockedStatus =
+        selectedLockedStatus === "Locked"
+          ? nft.lockedStatus
+          : selectedLockedStatus === "Unlocked"
+          ? !nft.lockedStatus
+          : true;
 
-      return matchesNetwork && matchesCollection;
+      return matchesNetwork && matchesLockedStatus;
     });
-  }, [selectedNetwork, selectedCollections]);
+  }, [selectedNetwork, selectedLockedStatus]);
 
   // Initialize network items
   useEffect(() => {
@@ -126,6 +130,10 @@ function MyAssets({
     }, []);
   }, [uniqueCollections, handleCollectionSelect]);
 
+  const handleLockedStatusSelect = useCallback((status) => {
+    setSelectedLockedStatus(status);
+  }, []);
+
   const handleSelectNFT = useCallback(
     (nft) => {
       if (
@@ -155,12 +163,16 @@ function MyAssets({
         </div>
 
         <div className="dropdowns flex gap-3 h-full">
-          <Dropdown  buttonName="Select a Collection" menuItems={collectionItems}/>
+          <Dropdown
+            buttonName="Select a Collection"
+            menuItems={collectionItems}
+          />
           <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}
             onNetworkSelect={handleNetworkSelect}
             onCollectionSelect={handleCollectionSelect}
+            onLockedStatusSelect={handleLockedStatusSelect}
           />
         </div>
       </div>
