@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
-import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
 import inProgress from "/images/bridge-progress.png";
 import complete from "/images/bridge-complete.png";
@@ -29,8 +28,32 @@ const destinationItems = [
   },
 ];
 
-function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
+const collectionItems = [
+  {
+    name: "Bored Ape Yacht Club",
+    icon: "bayc",
+  },
+  "divider",
+  {
+    name: "Mutant Ape Yacht Club",
+    icon: "mayc",
+  },
+  "divider",
+  {
+    name: "CryptoPunks",
+    icon: "cryptopunks",
+  },
+];
+
+function BridgePanel({
+  selectedNFTs,
+  onRemoveNFT,
+  resetSelectedNFTs,
+  setDisplayNFTs,
+}) {
   const [screen, setScreen] = useState("default");
+  const [selectedCollection, setSelectedCollection] = useState(null);
+  const [selectedSourceChain, setSelectedSourceChain] = useState(null);
   const [selectedDestination, setSelectedDestination] = useState(null);
 
   const handleSendClick = () => {
@@ -45,10 +68,39 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   const handleCloseClick = () => {
     resetSelectedNFTs();
     setScreen("default");
+    setSelectedCollection(null);
+    setSelectedSourceChain(null);
     setSelectedDestination(null);
+    setDisplayNFTs(false);
   };
 
-  const isSendButtonActive = selectedNFTs.length > 0 && selectedDestination;
+  const isSendButtonActive =
+    selectedNFTs.length > 0 &&
+    selectedCollection &&
+    selectedSourceChain &&
+    selectedDestination;
+
+  const handleSelectionChange = (collection, sourceChain, destination) => {
+    setSelectedCollection(collection);
+    setSelectedSourceChain(sourceChain);
+    setSelectedDestination(destination);
+
+    if (collection && sourceChain && destination) {
+      console.log("All selections made:", collection, sourceChain, destination);
+    }
+  };
+
+  const handleCollectionSelect = (item) => {
+    handleSelectionChange(item, selectedSourceChain, selectedDestination);
+  };
+
+  const handleSourceChainSelect = (item) => {
+    handleSelectionChange(selectedCollection, item, selectedDestination);
+  };
+
+  const handleDestinationSelect = (item) => {
+    handleSelectionChange(selectedCollection, selectedSourceChain, item);
+  };
 
   return (
     <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
@@ -67,7 +119,8 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               <Dropdown
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Collection"
-                menuItems={destinationItems}
+                menuItems={collectionItems}
+                onSelect={handleCollectionSelect}
               />
             </div>
 
@@ -76,11 +129,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               <div className="flex items-center gap-2">
                 <p className="dropdown-label">Source Chain</p>
                 <div className="tooltip">
-                  <img
-                    src="/icons/info.svg"
-                    alt="info"
-                    
-                  />
+                  <img src="/icons/info.svg" alt="info" />
                   <span className="tooltiptext">
                     The source chain is the chain where your NFTs are currently
                     located.
@@ -91,6 +140,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Source Chain"
                 menuItems={destinationItems}
+                onSelect={handleSourceChainSelect}
               />
             </div>
 
@@ -99,9 +149,10 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               <div className="flex items-center gap-2">
                 <p className="dropdown-label">Destination Chain</p>
                 <div className="tooltip">
-                  <img src="/icons/info.svg" alt="info"  />
+                  <img src="/icons/info.svg" alt="info" />
                   <span className="tooltiptext">
-                    The destination chain is the chain where you want to bridge your asset to.
+                    The destination chain is the chain where you want to bridge
+                    your asset to.
                   </span>
                 </div>
               </div>
@@ -109,6 +160,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Destination Chain"
                 menuItems={destinationItems}
+                onSelect={handleDestinationSelect}
               />
             </div>
           </div>

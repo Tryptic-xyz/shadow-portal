@@ -48,7 +48,7 @@ const NFTCard = ({
         <img
           src={imageUrl}
           alt={name}
-          className="w-full aspect-1/1 object-cover rounded-md md:rounded-lg"
+          className="w-full aspect-1/1 md:aspect-5/4 object-cover rounded-md md:rounded-lg"
         />
         <NetworkIcons networks={networks} />
 

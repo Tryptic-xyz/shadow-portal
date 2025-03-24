@@ -282,6 +282,7 @@ function MyAssets({
               selectedNFTs={selectedNFTs}
               onRemoveNFT={onRemoveNFT}
               resetSelectedNFTs={resetSelectedNFTs}
+              
             />
           </div>
         </div>
