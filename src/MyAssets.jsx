@@ -4,7 +4,7 @@ import placeholder from "/images/ape-placeholder.png";
 import BridgePanel from "./BridgePanel.jsx";
 import NFTCollection from "./data/nftCollection.js";
 import FilterDropdown from "./FilterDropdown.jsx";
-import Dropdown from "./Dropdown.jsx";
+
 
 function MyAssets({
   onSelectNFT,
@@ -164,13 +164,13 @@ function MyAssets({
 
         <div className="dropdowns flex gap-3 h-full">
  
-          <FilterDropdown
+          {/* <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}
             onNetworkSelect={handleNetworkSelect}
             onCollectionSelect={handleCollectionSelect}
             onLockedStatusSelect={handleLockedStatusSelect}
-          />
+          /> */}
         </div>
       </div>
 

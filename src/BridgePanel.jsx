@@ -7,7 +7,6 @@ import complete from "/images/bridge-complete.png";
 import BridgeButton from "./BridgeButton.jsx";
 import Dropdown from "./Dropdown.jsx";
 
-
 const destinationItems = [
   {
     name: "Apechain",
@@ -34,7 +33,6 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   const [screen, setScreen] = useState("default");
   const [selectedDestination, setSelectedDestination] = useState(null);
 
-  
   const handleSendClick = () => {
     if (selectedNFTs.length > 0 && selectedDestination) {
       setScreen("inProgress");
@@ -61,9 +59,11 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               Bridge Panel
             </h1>
 
-            {/* Collection  */}
+            {/* Collection */}
             <div className="dropdown-outer">
-              <p className="dropdown-label">Your Collections</p>
+              <div className="flex items-center gap-2">
+                <p className="dropdown-label">Your Collections</p>
+              </div>
               <Dropdown
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Collection"
@@ -71,9 +71,22 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               />
             </div>
 
-            {/* Destination Chain  */}
+            {/* Source Chain */}
             <div className="dropdown-outer">
-              <p className="dropdown-label">Source Chain</p>
+              <div className="flex items-center gap-2">
+                <p className="dropdown-label">Source Chain</p>
+                <div className="tooltip">
+                  <img
+                    src="/icons/info.svg"
+                    alt="info"
+                    
+                  />
+                  <span className="tooltiptext">
+                    The source chain is the chain where your NFTs are currently
+                    located.
+                  </span>
+                </div>
+              </div>
               <Dropdown
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Source Chain"
@@ -81,9 +94,17 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
               />
             </div>
 
-            {/* Destination Chain  */}
+            {/* Destination Chain */}
             <div className="dropdown-outer">
-              <p className="dropdown-label">Destination Chain</p>
+              <div className="flex items-center gap-2">
+                <p className="dropdown-label">Destination Chain</p>
+                <div className="tooltip">
+                  <img src="/icons/info.svg" alt="info"  />
+                  <span className="tooltiptext">
+                    The destination chain is the chain where you want to bridge your asset to.
+                  </span>
+                </div>
+              </div>
               <Dropdown
                 className="h-16 text-sm sm:text-base lg:text-lg"
                 buttonName="Select a Destination Chain"
