@@ -3,7 +3,8 @@ import NFTCard from "./NFTCard.jsx";
 import placeholder from "/images/ape-placeholder.png";
 import BridgePanel from "./BridgePanel.jsx";
 import NFTCollection from "./data/nftCollection.js";
-import SkeletonCard from "./SkeletonCard.jsx";
+import FilterDropdown from "./FilterDropdown.jsx";
+
 
 function MyAssets({
   onSelectNFT,
@@ -18,7 +19,6 @@ function MyAssets({
   const [showNotification, setShowNotification] = useState(false);
   const [showBridgePanel, setShowBridgePanel] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [displayNFTs, setDisplayNFTs] = useState(false);
 
   // Filter NFTs based on selected network and locked status
   const filteredNFTs = useMemo(() => {
@@ -163,6 +163,7 @@ function MyAssets({
         </div>
 
         <div className="dropdowns flex gap-3 h-full">
+ 
           {/* <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}
@@ -197,25 +198,17 @@ function MyAssets({
       )}
 
       <div className="nft-grid h-full scrollbar-hide">
-        {displayNFTs ? (
-          filteredNFTs.map((nft) => (
-            <NFTCard
-              key={nft.id}
-              image={nft.image || placeholder}
-              collection={nft.collection}
-              name={nft.name}
-              networks={nft.networks}
-              onSelect={() => handleSelectNFT(nft)}
-              isSelected={selectedNFTs.some((item) => item.id === nft.id)}
-            />
-          ))
-        ) : (
-          <div className="skeleton-cards">
-            {[...Array(6)].map((_, index) => (
-              <SkeletonCard key={index} />
-            ))}
-          </div>
-        )}
+        {filteredNFTs.map((nft) => (
+          <NFTCard
+            key={nft.id}
+            image={nft.image || placeholder}
+            collection={nft.collection}
+            name={nft.name}
+            networks={nft.networks}
+            onSelect={() => handleSelectNFT(nft)}
+            isSelected={selectedNFTs.some((item) => item.id === nft.id)}
+          />
+        ))}
       </div>
 
       {showNotification && selectedNFTs.length > 0 && (
@@ -289,7 +282,7 @@ function MyAssets({
               selectedNFTs={selectedNFTs}
               onRemoveNFT={onRemoveNFT}
               resetSelectedNFTs={resetSelectedNFTs}
-              setDisplayNFTs={setDisplayNFTs}
+              
             />
           </div>
         </div>
