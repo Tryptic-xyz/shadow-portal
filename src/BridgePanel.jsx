@@ -4,6 +4,7 @@ import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
 import inProgress from "/images/bridge-progress.png";
 import complete from "/images/bridge-complete.png";
+import BridgeButton from "./BridgeButton.jsx"; // Import the new BridgeButton component
 
 const destinationItems = [
   {
@@ -125,17 +126,10 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
 
           <Accordion layer0={1.29} gasFee={0.25} />
 
-          <button
-            className={`cursor-pointer mt-4 py-5 rounded-lg px-4 uppercase tracking-widest transition-all ease-in-out-quart z-1 ${
-              isSendButtonActive
-                ? "bg-blue-500 text-white font-bold"
-                : "bg-blue-900/50 text-white/20 cursor-not-allowed"
-            }`}
+          <BridgeButton
+            isActive={isSendButtonActive}
             onClick={handleSendClick}
-            disabled={!isSendButtonActive}
-          >
-            <div className="z-10">Send</div>
-          </button>
+          />
 
           <div className="flex w-full justify-center font-mono text-white/40 text-sm underline">
             <div className="flex gap-x-4">
@@ -178,6 +172,3 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
 }
 
 export default BridgePanel;
-
-
-
