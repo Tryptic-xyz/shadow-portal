@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SelectedNFT from "./SelectedNFT.jsx";
 import Accordion from "./Accordion.jsx";
 import inProgress from "/images/bridge-progress.png";
@@ -7,42 +7,21 @@ import BridgeButton from "./BridgeButton.jsx";
 import Dropdown from "./Dropdown.jsx";
 
 const destinationItems = [
-  {
-    name: "Apechain",
-    icon: "apechain",
-  },
+  { name: "Apechain", icon: "apechain" },
   "divider",
-  {
-    name: "Ethereum",
-    icon: "ethereum",
-  },
+  { name: "Ethereum", icon: "ethereum" },
   "divider",
-  {
-    name: "Base",
-    icon: "base",
-  },
+  { name: "Base", icon: "base" },
   "divider",
-  {
-    name: "Abstract",
-    icon: "abstract",
-  },
+  { name: "Abstract", icon: "abstract" },
 ];
 
 const collectionItems = [
-  {
-    name: "Bored Ape Yacht Club",
-    icon: "bayc",
-  },
+  { name: "Bored Ape Yacht Club", icon: "bayc" },
   "divider",
-  {
-    name: "Mutant Ape Yacht Club",
-    icon: "mayc",
-  },
+  { name: "Mutant Ape Yacht Club", icon: "mayc" },
   "divider",
-  {
-    name: "CryptoPunks",
-    icon: "cryptopunks",
-  },
+  { name: "CryptoPunks", icon: "cryptopunks" },
 ];
 
 function BridgePanel({
@@ -86,7 +65,7 @@ function BridgePanel({
     setSelectedDestination(destination);
 
     if (collection && sourceChain && destination) {
-      console.log("All selections made:", collection, sourceChain, destination);
+      setDisplayNFTs(true);
     }
   };
 
