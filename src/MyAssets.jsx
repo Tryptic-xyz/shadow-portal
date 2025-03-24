@@ -163,10 +163,7 @@ function MyAssets({
         </div>
 
         <div className="dropdowns flex gap-3 h-full">
-          <Dropdown
-            buttonName="Select a Collection"
-            menuItems={collectionItems}
-          />
+ 
           <FilterDropdown
             networkItems={networkItems}
             collectionItems={collectionItems}

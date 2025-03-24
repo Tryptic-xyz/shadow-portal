@@ -1,6 +1,6 @@
 @import "./index.css";
 .dropdown-ctr {
-  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top-right flex flex-col w-full ;
+  @apply absolute px-3 right-0 mt-2 bg-blue-900/85 backdrop-blur-xl shadow-lg rounded-lg border border-white/30 transition-all duration-500 ease-out-quart transform origin-top flex flex-col w-full ;
 }
 
 .menu-item {
@@ -32,21 +32,18 @@
 }
 
 .dropdown-btn {
-  @apply bg-white/10 rounded-lg text-white px-4 shadow-md transition-all duration-500 cursor-pointer relative hover:bg-white/0 text-sm md:text-base justify-center md:justify-start;
+  @apply  rounded-lg  px-4 shadow-md transition-all duration-500 cursor-pointer relative   ;
 }
 
-.dropdown-btn:after {
-  @apply bg-gradient-to-b from-white/30 to-[#999]/15 h-full w-full left-0 top-0;
-  content: "";
-  position: absolute;
-  border-radius: inherit;
-  opacity: 0;
-  transition: all 500ms;
-}
 
-.dropdown-btn:hover:after {
-  opacity: 1;
-}
 .menu-label {
   @apply text-white/30 py-2 ml-2 text-xs uppercase font-mono tracking-widest;
+}
+
+.dropdown-label {
+  @apply text-white/60 text-xs lg:text-sm font-mono uppercase tracking-widest;
+}
+
+.dropdown-outer {
+  @apply flex flex-col gap-y-2;
 }

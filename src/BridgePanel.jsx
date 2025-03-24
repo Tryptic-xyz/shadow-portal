@@ -4,7 +4,9 @@ import DestinationDropdown from "./DestinationDropdown.jsx";
 import Accordion from "./Accordion.jsx";
 import inProgress from "/images/bridge-progress.png";
 import complete from "/images/bridge-complete.png";
-import BridgeButton from "./BridgeButton.jsx"; // Import the new BridgeButton component
+import BridgeButton from "./BridgeButton.jsx";
+import Dropdown from "./Dropdown.jsx";
+
 
 const destinationItems = [
   {
@@ -32,17 +34,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
   const [screen, setScreen] = useState("default");
   const [selectedDestination, setSelectedDestination] = useState(null);
 
-  // Get the active network from the first selected NFT
-  const getActiveNetwork = () => {
-    if (selectedNFTs.length > 0) {
-      const activeNetwork = selectedNFTs[0].networks.find(
-        (network) => network.isActive
-      );
-      return activeNetwork ? activeNetwork.name : "Unknown";
-    }
-    return "";
-  };
-
+  
   const handleSendClick = () => {
     if (selectedNFTs.length > 0 && selectedDestination) {
       setScreen("inProgress");
@@ -64,49 +56,48 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
     <div className="min-w-auto h-[85svh] w-full lg:min-w-[375px] xl:min-w-[450px] lg:h-full bg-blue-900/80 flex flex-col rounded-lg shadow-xl rainbow-gradient-stroke relative p-4 gap-y-4 lg:gap-y-8 bridge-panel-bg overflow-y-scroll scrollbar-hide">
       {screen === "default" && (
         <>
-          <div className="flex flex-col gap-y-4">
-            <div className="flex flex-col gap-y-2">
-              <p className="text-white lg:text-xl">Source Chain</p>
-              <div
-                className={`flex w-full ${
-                  selectedNFTs.length > 0
-                    ? "bg-blue-500"
-                    : "bg-gradient-to-b from-white/0 to-white/15"
-                } justify-center items-center py-4 px-3 rounded-lg border border-white/20 shadow-xl`}
-              >
-                {selectedNFTs.length > 0 ? (
-                  <div className="flex items-center gap-2">
-                    {getActiveNetwork() !== "" && (
-                      <img
-                        src={`./icons/${getActiveNetwork()}.svg`}
-                        alt={getActiveNetwork()}
-                        className="w-6 h-6 rounded-full border border-white/0"
-                      />
-                    )}
-                    <p className="text-white lg:text-xl">
-                      {getActiveNetwork()}
-                    </p>
-                  </div>
-                ) : (
-                  <p className="text-white/50">No NFT selected</p>
-                )}
-              </div>
+          <div className="flex flex-col gap-y-6">
+            <h1 className="font-headline text-5xl tracking-wide text-blue-100 uppercase">
+              Bridge Panel
+            </h1>
+
+            {/* Collection  */}
+            <div className="dropdown-outer">
+              <p className="dropdown-label">Your Collections</p>
+              <Dropdown
+                className="h-16 text-sm sm:text-base lg:text-lg"
+                buttonName="Select a Collection"
+                menuItems={destinationItems}
+              />
             </div>
 
-            {/* Destination Dropdown */}
-            <div className="flex flex-col gap-y-2">
-              <p className="text-white lg:text-xl">Destination Chain</p>
-              <DestinationDropdown
+            {/* Destination Chain  */}
+            <div className="dropdown-outer">
+              <p className="dropdown-label">Source Chain</p>
+              <Dropdown
+                className="h-16 text-sm sm:text-base lg:text-lg"
+                buttonName="Select a Source Chain"
                 menuItems={destinationItems}
-                onSelect={(item) => setSelectedDestination(item)}
+              />
+            </div>
+
+            {/* Destination Chain  */}
+            <div className="dropdown-outer">
+              <p className="dropdown-label">Destination Chain</p>
+              <Dropdown
+                className="h-16 text-sm sm:text-base lg:text-lg"
+                buttonName="Select a Destination Chain"
+                menuItems={destinationItems}
               />
             </div>
           </div>
 
+          <div className="divider"></div>
+
           {/* Selected NFT Panel */}
           <div className="flex flex-col gap-y-2 z-10">
             <div className="w-full flex justify-between items-center">
-              <h1 className="lg:text-xl text-white pl-1">Selected NFTs</h1>
+              <h1 className="dropdown-label">Selected NFTs</h1>
               {selectedNFTs.length > 0 && (
                 <div className="bg-blue-500 tracking-wider uppercase text-sm px-4 py-0.5 rounded-full text-white/80">
                   {selectedNFTs.length} Selected
@@ -126,6 +117,7 @@ function BridgePanel({ selectedNFTs, onRemoveNFT, resetSelectedNFTs }) {
 
           <Accordion layer0={1.29} gasFee={0.25} />
 
+          <div className="divider"></div>
           <BridgeButton
             isActive={isSendButtonActive}
             onClick={handleSendClick}

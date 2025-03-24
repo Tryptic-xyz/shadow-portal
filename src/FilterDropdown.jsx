@@ -13,11 +13,11 @@ const FilterDropdown = ({
   useClickOutside(dropdownRef, () => setIsOpen(false), buttonRef);
 
   return (
-    <div className="h-full w-full md:w-auto gradient-border" ref={dropdownRef}>
+    <div className="h-full w-full  gradient-border" ref={dropdownRef}>
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
-        className="dropdown-btn w-full md:w-auto h-full flex items-center gap-3 transition-all"
+        className="dropdown-btn w-full h-full flex items-center gap-3 transition-all"
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-label="Filter Dropdown"
